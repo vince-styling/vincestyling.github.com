@@ -1,0 +1,21 @@
+---
+layout: basic
+---
+<div class="page-title">
+    <h1><TMPL_VAR title /></h1>
+    <div class="entry-meta">
+        Posted on
+        <span class="date"><TMPL_VAR __post_createtime /></span>
+        By
+        <span class="author"><TMPL_VAR author /></span>
+        Tags:
+        <TMPL_LOOP __post_tags>
+            <a href="<TMPL_VAR __minerl_tag_link />" class="link"><TMPL_VAR __minerl_tag_name /></a><TMPL_UNLESS __last__>, </TMPL_UNLESS>
+        </TMPL_LOOP>
+    </div>
+</div>
+<div class="primary">
+    <div class="post-thumb">
+        <TMPL_VAR content />
+    </div>
+</div>

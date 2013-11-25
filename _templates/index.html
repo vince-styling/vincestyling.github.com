@@ -1,0 +1,11 @@
+---
+layout: basic
+---
+<div class="primary">
+    <TMPL_LOOP __minerl_all_posts>
+        <h2 class="post_title"><a href="<TMPL_VAR __post_link />"><TMPL_VAR __post_title /></a></h2>
+        <div class="post_content">
+            <TMPL_VAR __post_excerpt />...
+        </div>
+    </TMPL_LOOP>
+</div>

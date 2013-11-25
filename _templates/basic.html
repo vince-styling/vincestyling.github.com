@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="/css/site.css" type="text/css" media="screen">
+    <title><TMPL_VAR title /></title>
+</head>
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <span class="logo_txt">Vince's styling</span>
+            <div class="primary-nav">
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix">
+            <TMPL_VAR content />
+            <div class="sidebar">
+                <div class="introduce_me">
+                    <p class="soflw"><a href="http://stackoverflow.com/users/1294681/vince"><img src="http://stackoverflow.com/users/flair/1294681.png" alt="profile for vince at Stack Overflow" title="profile for vince at Stack Overflow" /></a></p>
+                    <p class="describe">Welcome to vince's styling, a blog about all things in software development by vince, He was Chinese, so please be patient because his English still poor even if he start programing over 5 years.</p>
+                </div>
+                <div class="widget">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <div class="widget-list">
+                        <ul>
+                            <TMPL_LOOP __minerl_recent_posts>
+                                <li><a href="<TMPL_VAR __post_link />"><TMPL_VAR __post_title /></a> - <span class="createdate"><TMPL_VAR __post_createdate /></span></li>
+                            </TMPL_LOOP>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <h3 class="widget-title">Tags</h3>
+                    <div class="widget-list">
+                        <ul>
+                            <TMPL_LOOP __minerl_all_tags>
+                                <li><a href="/tags/<TMPL_VAR __minerl_tag />.html"><TMPL_VAR __minerl_tag /></a> (<TMPL_VAR __minerl_post_count />)</li>
+                            </TMPL_LOOP>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="footer-widgets">
+            <div class="splitter"></div>
+            <div class="aboutus">
+                <div class="copyright">© Copyright 2013 Vince's styling</div>
+                <div class="findme">Find me on <a href="https://github.com/vincestyling">github</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

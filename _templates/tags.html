@@ -1,0 +1,15 @@
+---
+layout: basic
+---
+<div class="primary">
+    <h3 class="title">Tag: <TMPL_VAR __minerl_cur_tag /></h3>
+    <ul>
+        <TMPL_LOOP __minerl_tagged_posts>
+            <li><a href="<TMPL_VAR __post_link />"><TMPL_VAR __post_title /></a> - <span class="createdate"><TMPL_VAR __post_createdate /></span></li>
+            <div class="post_content">
+                <TMPL_VAR __post_excerpt />...
+            </div>
+            <br/>
+        </TMPL_LOOP>
+    </ul>
+</div>
