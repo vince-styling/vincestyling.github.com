@@ -1,0 +1,280 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, img, strong, ul, li, form, label, table, caption, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+ol, ul {
+    list-style: none
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    display: block;
+}
+
+body {
+    border-top: 10px solid #f5f5f5;
+    font-family: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: url("/images/bg-tile.png") repeat;
+}
+
+a {
+    color:#d14;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a img {
+    border: none
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    padding: 0;
+}
+
+.container {
+    width: 980px;
+    margin: 0 auto;
+    padding: 30px 0 0 0;
+}
+
+
+.header {
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.header .logo_txt {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-style: italic;
+    font-size: 42px;
+}
+
+.header .primary-nav {
+    float: right;
+    margin-bottom: 35px;
+    margin-top: 5px;
+    font-size: 13px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.header .primary-nav ul li {
+    float: left;
+    position: relative;
+    z-index: 40
+}
+
+.header .primary-nav ul a {
+    padding: 0 15px;
+    height: 35px;
+    font-weight: bold;
+    line-height: 35px;
+}
+
+
+.page-title {
+    font-size: 22px;
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-style: italic;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    clear:both;
+    overflow:auto;
+    padding:20px 0 20px 0;
+}
+
+.page-title h1 {
+    font-size: 22px;
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-style: italic;
+    padding: 0;
+    border-bottom: none;
+    float: left;
+    line-height: 64px
+}
+
+.page-title .entry-meta {
+    clear: both;
+    font-size: 12px;
+    width: 100%;
+}
+
+.page-title .entry-meta .date,
+.page-title .entry-meta .author,
+.page-title .entry-meta .link {
+    color:#d14;
+    font-size: 12px;
+}
+
+
+.primary {
+    float: left;
+    width: 700px;
+    margin-top: 40px;
+}
+
+.primary .post-thumb p {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    color: #333333;
+    font-size: 16px;
+    line-height: 165%;
+    padding-bottom: 20px;
+}
+
+.primary .post-thumb h2 {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-size: 18px;
+    color: #d14;
+    padding-bottom: 10px;
+}
+
+.primary .post-thumb pre {
+    word-wrap: normal;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.primary .post-thumb pre code {
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    font-size: 14px;
+    color: #333333;
+    line-height: 19px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    word-wrap: normal;
+}
+
+.primary .post-thumb code {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-size: 16px;
+    padding: 3px 4px;
+    color: #d14;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+}
+
+
+.sidebar {
+    float: right;
+    width: 260px;
+    margin-top: 40px;
+}
+
+.sidebar .introduce_me {
+    margin: 0 0 30px 0;
+}
+
+.sidebar .introduce_me .soflw img {
+    width: 260px;
+}
+
+.sidebar .introduce_me .describe {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333333;
+    padding-top: 10px;
+}
+
+.sidebar .widget {
+    margin: 0 0 30px 0;
+}
+
+.sidebar .widget .widget-title {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-size: 14px;
+    line-height: 14px;
+    color: #474848;
+    background: url("/images/gray-bg.png");
+    padding: 10px 10px;
+    border-bottom: 1px solid #ddd;
+    text-transform: uppercase;
+    margin: 0 0 7px 0;
+}
+
+.sidebar .widget .widget-list {
+    display: block;
+}
+
+.sidebar .widget .widget-list ul {
+    padding: 0 15px;
+    margin: 0 0 7px 0;
+    list-style: none;
+    text-align: left;
+}
+
+.sidebar .widget .widget-list ul li {
+    border-bottom: 1px solid #ebebeb;
+    padding: 5px 0;
+    font-size: 13px;
+    line-height: 25px;
+}
+
+.sidebar .widget .widget-list ul li a {
+    padding-right: 2px;
+    font-size: 14px;
+}
+
+.sidebar .widget .widget-list ul li .createdate {
+    font-size: 11px;
+    color: #666;
+}
+
+.footer-container {
+    margin: 20px 0 0 0;
+}
+
+.footer-widgets {
+    width: 980px;
+    margin: 0 auto;
+}
+
+.footer-widgets .splitter {
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.footer-widgets .aboutus {
+    padding: 30px 0 80px 0;
+}
+
+.footer-widgets .aboutus .copyright {
+    font-size: 12px;
+    color: #666;
+    float:left;
+}
+
+.footer-widgets .aboutus .findme {
+    color: #666;
+    font-size: 12px;
+    float: right;
+}
