@@ -1,0 +1,9 @@
+# for IntelliJ IDEA description files
+*.iml
+.idea
+*.idb
+out
+
+# for Mac OS files
+.DS_Store
+
