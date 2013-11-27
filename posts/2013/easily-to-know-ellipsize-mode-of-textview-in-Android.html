@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="/css/site.css" type="text/css" media="screen">
+    <title>easily to know ellipsize mode of textview in Android</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <span class="logo_txt">Vince's styling</span>
+            <div class="primary-nav">
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="page-title">
+    <h1>easily to know ellipsize mode of textview in Android</h1>
+    <div class="entry-meta">
+        Posted on
+        <span class="date">Nov 26, 2013</span>
+        By
+        <span class="author">vince's styling</span>
+        Tags:
+        
+            <a href="/tags/android.html" class="link">android</a>, 
+        
+            <a href="/tags/canvas.html" class="link">canvas</a>, 
+        
+            <a href="/tags/view.html" class="link">view</a>
+        
+    </div>
+</div>
+<div class="primary">
+    <div class="post-thumb">
+        <p>As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode,
+but we can't find out how to know if TextView ellipsized, we want to know it because
+we can do something for it such as show an expand/collapse Button by the ellipsize
+state, that was why we wrote this widget.</p>
+
+<p>this widget looks like the TextView, offer LineSpacing, TextSize, TextColor to let you
+customize like you do with TextView via StyledAttributes, of course you can declare more
+attributes as you wanted.</p>
+
+<h2 id="howdoesitdo">How does it do?</h2>
+
+<p>It all start by the onMeasure method, when onMeasure calling, we use Paint.breakText() to
+calculate the input string then store every line's start&amp;end index.</p>
+
+<pre><code>int index = 0;
+int newlineIndex = 0;
+int endCharIndex = 0;
+mLines = new ArrayList&lt;int[]&gt;(mMaxLineCount * 2);
+
+// breakText line by line and store line's indices
+while (index &lt; mText.length()) {
+    if (index == newlineIndex) {
+        newlineIndex = mText.indexOf(NEW_LINE_STR, newlineIndex);
+        endCharIndex = (newlineIndex != -1) ? newlineIndex : mText.length();
+    }
+
+    int charCount = mPaint.breakText(mText, index, endCharIndex, true, maxWidth, null);
+    if (charCount &gt; 0) {
+        mLines.add(new int[]{index, index + charCount});
+        index += charCount;
+    }
+
+    if (index == newlineIndex) {
+        newlineIndex++;
+        index++;
+    }
+}
+</code></pre>
+
+<p>after that, we got the actually line count(<code>EntireLineCount</code>) by the entire input string.
+according to that we can measure width simply done by Paint.measureText() method. Use
+<code>EntireLineCount</code> we can decide should expand or not and measure height. when measure
+is <strong>done</strong>, we will inform the ellipsize mode via OnMeasureDoneListener who want to know
+it was changed. you can toggle the mode to expand/collapse via click-handler if there's
+not enough space for the input string(when EntireLineCount > MaxLineCount).</p>
+
+<p>In <strong>onDraw()</strong> method, we use <code>mDrawLineCount</code> to draw few lines that calculate by the
+<strong>measureHeight()</strong> method, if ellipsize needs, we will loop delete last line one char
+of the end then measure until enough to draw ellipsize text.</p>
+
+<pre><code>StringBuilder line = ...;
+float lineDrawWidth = mPaint.measureText(line, 0, line.length());
+float ellipsisWidth = mPaint.measureText(mStrEllipsis);
+
+// delete one char then measure until enough to draw ellipsize text
+while (lineDrawWidth + ellipsisWidth &gt; renderWidth) {
+    line.deleteCharAt(line.length() - 1);
+    lineDrawWidth = mPaint.measureText(line, 0, line.length());
+}
+line.append(mStrEllipsis);
+</code></pre>
+
+<h2 id="aproblemhappenduringondrawmethod.">A problem happen during onDraw() method.</h2>
+
+<p>Suppose you have a large string to display, the measure height is greater than screen
+height if you want to display entire string, but Android just offer the <strong>Canvas</strong> match
+the screen dimension in the <strong>onDraw()</strong> method, that means the Canvas dimension not rely your
+measure result. for example, you measure dimension is 720x1400 but Canvas dimension
+just 720x1280, therefore the expand mode doesn't show all lines. but the dimension of View
+is rely the measure result, it will be displayed as 720x1240 dimension. why this situation
+occur? because we calculate the used height after draw per line, if Canvas not enough space
+to draw next line, we will stop them. when disable that determine, the problem solved. I didn't
+figure out this problem, if you know how to do, please share to me.</p>
+
+<pre><code>while (some condition) {
+    // draw the current line.
+    canvas.drawText(line, 0, line.length(), canvasX, canvasY, mPaint);
+
+    canvasY += (-mPaint.ascent() + mPaint.descent()) + mLineSpacing;
+
+    // stop if canvas not enough space to draw next line
+    if (canvasY &gt; canvas.getHeight()) break;
+}
+</code></pre>
+
+<p>To be straightforward, a runtime screenshot attached.</p>
+
+<p><img src="/images/screenshot_of_ellipsize_textview.png" alt="EllipsizeTextView runtime screenshot" title="EllipsizeTextView runtime screenshot" id="ellipsizetextviewruntimescreenshot"></p>
+
+<p>Notes : This widget is pretty basic, it just support left-to-right text and
+ellipsize text end. it handled Chinese or some languages like Chinese,
+you can modify the <strong>breakText</strong> logic code to implement yourself.</p>
+
+<p>The full source code for EllipsizeTextView and the sample project on <a href="https://github.com/vince-styling/ellipsize-textview-android">GitHub</a>.</p>
+
+<h3 id="helpfulposts:">Helpful Posts :</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/2160619/android-ellipsize-multiline-textview/6763689">android ellipsize multiline textview</a></li>
+<li><a href="https://code.google.com/p/android-textview-multiline-ellipse/">android-textview-multiline-ellipse</a></li>
+</ul>
+
+    </div>
+</div>
+            <div class="sidebar">
+                <div class="introduce_me">
+                    <p class="soflw"><a href="http://stackoverflow.com/users/1294681/vince"><img src="http://stackoverflow.com/users/flair/1294681.png" alt="profile for vince at Stack Overflow" title="profile for vince at Stack Overflow" /></a></p>
+                    <p class="describe">Welcome to vince's styling, a blog about all things in software development by vince, He was Chinese, so please be patient because his English still poor even if he start programing over 5 years.</p>
+                </div>
+                <div class="widget">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <div class="widget-list">
+                        <ul>
+                            
+                                <li><a href="/posts/2013/easily-to-know-ellipsize-mode-of-textview-in-Android.html">easily to know ellipsize mode of textview in Android</a> - <span class="createdate">Nov 26, 2013</span></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <h3 class="widget-title">Tags</h3>
+                    <div class="widget-list">
+                        <ul>
+                            
+                                <li><a href="/tags/android.html">android</a> (1)</li>
+                            
+                                <li><a href="/tags/canvas.html">canvas</a> (1)</li>
+                            
+                                <li><a href="/tags/view.html">view</a> (1)</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="footer-widgets">
+            <div class="splitter"></div>
+            <div class="aboutus">
+                <div class="copyright">© Copyright 2013 Vince's styling</div>
+                <div class="findme">Find me on <a href="https://github.com/vince-styling">github</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
