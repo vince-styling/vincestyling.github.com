@@ -92,9 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .page-title {
-    font-size: 22px;
     font-family: "Droid Serif", Georgia, Times, serif;
-    font-style: italic;
     border-bottom: 1px solid #ddd;
     box-shadow: 0 1px 0 rgba(255,255,255,0.5);
     clear:both;
@@ -105,7 +103,6 @@ h1, h2, h3, h4, h5, h6 {
 .page-title h1 {
     font-size: 22px;
     font-family: "Droid Serif", Georgia, Times, serif;
-    font-style: italic;
     padding: 0;
     border-bottom: none;
     float: left;
@@ -113,8 +110,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .page-title .entry-meta {
+    font-size: 13px;
     clear: both;
-    font-size: 12px;
     width: 100%;
 }
 
@@ -122,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
 .page-title .entry-meta .author,
 .page-title .entry-meta .link {
     color:#d14;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 
@@ -145,6 +142,17 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 18px;
     color: #d14;
     padding-bottom: 10px;
+}
+
+.primary .post-thumb h3 {
+    font-family: "Droid Serif", Georgia, Times, serif;
+    font-size: 16px;
+    color: #333333;
+    padding-bottom: 6px;
+}
+
+.primary .post-thumb ul li {
+    line-height: 28px;
 }
 
 .primary .post-thumb pre {
