@@ -198,6 +198,38 @@ h1, h2, h3, h4, h5, h6 {
     background: #eee;
 }
 
+.primary .post_list li {
+    background: url("/images/background-gray-light.jpg");
+    margin: 0 0 10px 0;
+    text-align: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    line-height: 25px;
+}
+
+.primary .post_list li a {
+    color: #333333;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.primary .post_list li a span {
+    color: #d14;
+    font-size: 23px;
+}
+
+.primary .post_list li a span:hover {
+    border-bottom: 1px solid #bbd4e0;
+}
+
+.primary .post_list li a p {
+    line-height: 26px;
+    margin-top: 10px;
+}
+
 
 .sidebar {
     float: right;
