@@ -1,11 +1,11 @@
 ---
-title: easily to know ellipsize mode of textview in Android
+title: easily to know and switch the ellipsize mode of textview in Android
 layout: post
 format: markdown
 type: post
 tags: android, canvas, view
 timestamp: 1385469587
-slug: easily-to-know-ellipsize-mode-of-textview-in-Android.html
+slug: easily-to-know-and-switch-the-ellipsize-mode-of-textview-in-Android.html
 ---
 
 As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode,
