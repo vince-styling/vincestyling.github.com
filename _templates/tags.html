@@ -2,14 +2,15 @@
 layout: basic
 ---
 <div class="primary">
-    <h3 class="title">Tag: <TMPL_VAR __minerl_cur_tag /></h3>
-    <ul>
+    <h3 class="title">Article Tag: <TMPL_VAR __minerl_cur_tag /></h3>
+    <ul class="post_list">
         <TMPL_LOOP __minerl_tagged_posts>
-            <li><a href="<TMPL_VAR __post_link />"><TMPL_VAR __post_title /></a> - <span class="createdate"><TMPL_VAR __post_createdate /></span></li>
-            <div class="post_content">
-                <TMPL_VAR __post_excerpt />...
-            </div>
-            <br/>
+            <li title="<TMPL_VAR __post_title />">
+                <a href="<TMPL_VAR __post_link />">
+                    <span><TMPL_VAR __post_title /></span>
+                    <p><TMPL_VAR __post_excerpt />...</p>
+                </a>
+            </li>
         </TMPL_LOOP>
     </ul>
 </div>

@@ -198,6 +198,11 @@ h1, h2, h3, h4, h5, h6 {
     background: #eee;
 }
 
+.primary .title {
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+
 .primary .post_list li {
     background: url("/images/background-gray-light.jpg");
     margin: 0 0 10px 0;
