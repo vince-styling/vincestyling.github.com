@@ -190,6 +190,130 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 3px;
 }
 
+.primary .post-thumb pre .comment, .primary .post-thumb pre .doc_comment {
+    color: #008800;
+}
+
+.primary .post-thumb pre .string, .primary .post-thumb pre .esc_string {
+    color: #BB4444;
+}
+
+.primary .post-thumb pre .character {
+    color: #3b84cc;
+}
+
+.primary .post-thumb pre .esc_character {
+    color: #3b84cc;
+}
+
+.primary .post-thumb pre .numeric {
+    color: #2300CE;
+}
+
+.primary .post-thumb pre .identifier, .predefined_identifier {
+    color: #000000;
+}
+
+.primary .post-thumb pre .type, .predefined_type {
+    color: #59ffff;
+}
+
+.primary .post-thumb pre .reserved_word {
+    color: #AA0D92;
+}
+
+.primary .post-thumb pre .library_function {
+    color: #face43;
+}
+
+.primary .post-thumb pre .include {
+    color: #7f0055;
+}
+
+.primary .post-thumb pre .preprocessor {
+    color: #face43;
+}
+
+.primary .post-thumb pre .braces {
+    color: #000000;
+}
+
+.primary .post-thumb pre .symbol {
+    color: #EC6C1E;
+}
+
+.primary .post-thumb pre .function_header {
+    color: #face43;
+}
+
+.primary .post-thumb pre .function_header_name {
+    color: #face43;
+}
+
+.primary .post-thumb pre .function_header_args {
+    color: #face43;
+}
+
+.primary .post-thumb pre .regex {
+    color: #face43;
+}
+
+.primary .post-thumb pre .text {
+    color: #face43;
+}
+
+.primary .post-thumb pre .html_entity {
+    color: #face43;
+}
+
+.primary .post-thumb pre .makefile_assignment {
+    color: #face43;
+}
+
+.primary .post-thumb pre .makefile_dependency_line {
+    color: #face43;
+}
+
+.primary .post-thumb pre .makefile_dependency_target {
+    color: #face43;
+}
+
+.primary .post-thumb pre .makefile_dependency_continuation {
+    color: #face43;
+}
+
+.primary .post-thumb pre .makefile_continuation {
+    color: #face43;
+}
+
+.primary .post-thumb pre .macro {
+    color: #face43;
+}
+
+.primary .post-thumb pre .int_macro {
+    color: #face43;
+}
+
+.primary .post-thumb pre .esc_3dollr {
+    color: #face43;
+}
+
+.primary .post-thumb pre .patch_separator {
+    color: #face43;
+}
+
+.primary .post-thumb pre .patch_line_spec {
+    color: #face43;
+}
+
+.primary .post-thumb pre .patch_deletion {
+    color: #face43;
+}
+
+.primary .post-thumb pre .patch_insertion {
+    color: #face43;
+}
+
 .primary .disqus_thread_separator {
     width: 100%;
     margin-top: 30px;
