@@ -35,108 +35,70 @@
 </div>
 <div class="primary">
     <div class="post-thumb">
-        <p>As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode,
-but we can't find out how to know if TextView ellipsized, we want to know it because
-we can do something for it such as show an expand/collapse Button by the ellipsize
-state, that was why we wrote this widget.</p>
+        <html>
+ <head></head>
+ <body>
+  <p>As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode, but we can't find out how to know if TextView ellipsized, we want to know it because we can do something for it such as show an expand/collapse Button by the ellipsize state, that was why we wrote this widget.</p> 
+  <p>this widget looks like the TextView, offer LineSpacing, TextSize, TextColor to let you customize like you do with TextView via StyledAttributes, of course you can declare more attributes as you wanted.</p> 
+  <h2 id="howdoesitdo">How does it do?</h2> 
+  <p>It all start by the onMeasure method, when onMeasure calling, we use Paint.breakText() to calculate the input string then store every line's start&amp;end index.</p> 
+  <pre><span class="reserved_word">int</span> <span class="identifier">index</span> <span class="symbol">=</span> <span class="numeric">0</span><span class="symbol">;</span>
+<span class="reserved_word">int</span> <span class="identifier">newlineIndex</span> <span class="symbol">=</span> <span class="numeric">0</span><span class="symbol">;</span>
+<span class="reserved_word">int</span> <span class="identifier">endCharIndex</span> <span class="symbol">=</span> <span class="numeric">0</span><span class="symbol">;</span>
+<span class="identifier">mLines</span> <span class="symbol">=</span> <span class="reserved_word">new</span> <span class="identifier">ArrayList</span><span class="symbol">&lt;</span><span class="reserved_word">int</span><span class="braces">[</span><span class="braces">]</span><span class="symbol">&gt;</span><span class="braces">(</span><span class="identifier">mMaxLineCount</span> <span class="symbol">*</span> <span class="numeric">2</span><span class="braces">)</span><span class="symbol">;</span>
 
-<p>this widget looks like the TextView, offer LineSpacing, TextSize, TextColor to let you
-customize like you do with TextView via StyledAttributes, of course you can declare more
-attributes as you wanted.</p>
+<span class="comment">// breakText line by line and store line's indices</span>
+<span class="reserved_word">while</span> <span class="braces">(</span><span class="identifier">index</span> <span class="symbol">&lt;</span> <span class="identifier">mText</span>.<span class="identifier">length</span><span class="braces">(</span><span class="braces">)</span><span class="braces">)</span> <span class="braces">{</span>
+    <span class="reserved_word">if</span> <span class="braces">(</span><span class="identifier">index</span> <span class="symbol">=</span><span class="symbol">=</span> <span class="identifier">newlineIndex</span><span class="braces">)</span> <span class="braces">{</span>
+        <span class="identifier">newlineIndex</span> <span class="symbol">=</span> <span class="identifier">mText</span>.<span class="identifier">indexOf</span><span class="braces">(</span><span class="identifier">NEW_LINE_STR</span>, <span class="identifier">newlineIndex</span><span class="braces">)</span><span class="symbol">;</span>
+        <span class="identifier">endCharIndex</span> <span class="symbol">=</span> <span class="braces">(</span><span class="identifier">newlineIndex</span> <span class="symbol">!</span><span class="symbol">=</span> <span class="symbol">-</span><span class="numeric">1</span><span class="braces">)</span> ? <span class="identifier">newlineIndex</span> <span class="symbol">:</span> <span class="identifier">mText</span>.<span class="identifier">length</span><span class="braces">(</span><span class="braces">)</span><span class="symbol">;</span>
+    <span class="braces">}</span>
 
-<h2 id="howdoesitdo">How does it do?</h2>
+    <span class="reserved_word">int</span> <span class="identifier">charCount</span> <span class="symbol">=</span> <span class="identifier">mPaint</span>.<span class="identifier">breakText</span><span class="braces">(</span><span class="identifier">mText</span>, <span class="identifier">index</span>, <span class="identifier">endCharIndex</span>, <span class="reserved_word">true</span>, <span class="identifier">maxWidth</span>, <span class="reserved_word">null</span><span class="braces">)</span><span class="symbol">;</span>
+    <span class="reserved_word">if</span> <span class="braces">(</span><span class="identifier">charCount</span> <span class="symbol">&gt;</span> <span class="numeric">0</span><span class="braces">)</span> <span class="braces">{</span>
+        <span class="identifier">mLines</span>.<span class="identifier">add</span><span class="braces">(</span><span class="reserved_word">new</span> <span class="reserved_word">int</span><span class="braces">[</span><span class="braces">]</span><span class="braces">{</span><span class="identifier">index</span>, <span class="identifier">index</span> <span class="symbol">+</span> <span class="identifier">charCount</span><span class="braces">}</span><span class="braces">)</span><span class="symbol">;</span>
+        <span class="identifier">index</span> <span class="symbol">+</span><span class="symbol">=</span> <span class="identifier">charCount</span><span class="symbol">;</span>
+    <span class="braces">}</span>
 
-<p>It all start by the onMeasure method, when onMeasure calling, we use Paint.breakText() to
-calculate the input string then store every line's start&amp;end index.</p>
+    <span class="reserved_word">if</span> <span class="braces">(</span><span class="identifier">index</span> <span class="symbol">=</span><span class="symbol">=</span> <span class="identifier">newlineIndex</span><span class="braces">)</span> <span class="braces">{</span>
+        <span class="identifier">newlineIndex</span><span class="symbol">+</span><span class="symbol">+</span><span class="symbol">;</span>
+        <span class="identifier">index</span><span class="symbol">+</span><span class="symbol">+</span><span class="symbol">;</span>
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <p>after that, we got the actually line count(<code>EntireLineCount</code>) by the entire input string. according to that we can measure width simply done by Paint.measureText() method. Use <code>EntireLineCount</code> we can decide should expand or not and measure height. when measure is <strong>done</strong>, we will inform the ellipsize mode via OnMeasureDoneListener who want to know it was changed. you can toggle the mode to expand/collapse via click-handler if there's not enough space for the input string(when EntireLineCount &gt; MaxLineCount).</p> 
+  <p>In <strong>onDraw()</strong> method, we use <code>mDrawLineCount</code> to draw few lines that calculate by the <strong>measureHeight()</strong> method, if ellipsize needs, we will loop delete last line one char of the end then measure until enough to draw ellipsize text.</p> 
+  <pre><span class="identifier">StringBuilder</span> <span class="identifier">line</span> <span class="symbol">=</span> ...<span class="symbol">;</span>
+<span class="reserved_word">float</span> <span class="identifier">lineDrawWidth</span> <span class="symbol">=</span> <span class="identifier">mPaint</span>.<span class="identifier">measureText</span><span class="braces">(</span><span class="identifier">line</span>, <span class="numeric">0</span>, <span class="identifier">line</span>.<span class="identifier">length</span><span class="braces">(</span><span class="braces">)</span><span class="braces">)</span><span class="symbol">;</span>
+<span class="reserved_word">float</span> <span class="identifier">ellipsisWidth</span> <span class="symbol">=</span> <span class="identifier">mPaint</span>.<span class="identifier">measureText</span><span class="braces">(</span><span class="identifier">mStrEllipsis</span><span class="braces">)</span><span class="symbol">;</span>
 
-<pre><code>int index = 0;
-int newlineIndex = 0;
-int endCharIndex = 0;
-mLines = new ArrayList&lt;int[]&gt;(mMaxLineCount * 2);
+<span class="comment">// delete one char then measure until enough to draw ellipsize text</span>
+<span class="reserved_word">while</span> <span class="braces">(</span><span class="identifier">lineDrawWidth</span> <span class="symbol">+</span> <span class="identifier">ellipsisWidth</span> <span class="symbol">&gt;</span> <span class="identifier">renderWidth</span><span class="braces">)</span> <span class="braces">{</span>
+    <span class="identifier">line</span>.<span class="identifier">deleteCharAt</span><span class="braces">(</span><span class="identifier">line</span>.<span class="identifier">length</span><span class="braces">(</span><span class="braces">)</span> <span class="symbol">-</span> <span class="numeric">1</span><span class="braces">)</span><span class="symbol">;</span>
+    <span class="identifier">lineDrawWidth</span> <span class="symbol">=</span> <span class="identifier">mPaint</span>.<span class="identifier">measureText</span><span class="braces">(</span><span class="identifier">line</span>, <span class="numeric">0</span>, <span class="identifier">line</span>.<span class="identifier">length</span><span class="braces">(</span><span class="braces">)</span><span class="braces">)</span><span class="symbol">;</span>
+<span class="braces">}</span>
+<span class="identifier">line</span>.<span class="identifier">append</span><span class="braces">(</span><span class="identifier">mStrEllipsis</span><span class="braces">)</span><span class="symbol">;</span></pre> 
+  <h2 id="aproblemhappenduringondrawmethod.">A problem happen during onDraw() method.</h2> 
+  <p>Suppose you have a large string to display, the measure height is greater than screen height if you want to display entire string, but Android just offer the <strong>Canvas</strong> match the screen dimension in the <strong>onDraw()</strong> method, that means the Canvas dimension not rely your measure result. for example, you measure dimension is 720x1400 but Canvas dimension just 720x1280, therefore the expand mode doesn't show all lines. but the dimension of View is rely the measure result, it will be displayed as 720x1240 dimension. why this situation occur? because we calculate the used height after draw per line, if Canvas not enough space to draw next line, we will stop them. when disable that determine, the problem solved. I didn't figure out this problem, if you know how to do, please share to me.</p> 
+  <pre><span class="reserved_word">while</span> <span class="braces">(</span><span class="identifier">some</span> <span class="identifier">condition</span><span class="braces">)</span> <span class="braces">{</span>
+    <span class="comment">// draw the current line.</span>
+    <span class="identifier">canvas</span>.<span class="identifier">drawText</span><span class="braces">(</span><span class="identifier">line</span>, <span class="numeric">0</span>, <span class="identifier">line</span>.<span class="identifier">length</span><span class="braces">(</span><span class="braces">)</span>, <span class="identifier">canvasX</span>, <span class="identifier">canvasY</span>, <span class="identifier">mPaint</span><span class="braces">)</span><span class="symbol">;</span>
 
-// breakText line by line and store line's indices
-while (index &lt; mText.length()) {
-    if (index == newlineIndex) {
-        newlineIndex = mText.indexOf(NEW_LINE_STR, newlineIndex);
-        endCharIndex = (newlineIndex != -1) ? newlineIndex : mText.length();
-    }
+    <span class="identifier">canvasY</span> <span class="symbol">+</span><span class="symbol">=</span> <span class="braces">(</span><span class="symbol">-</span><span class="identifier">mPaint</span>.<span class="identifier">ascent</span><span class="braces">(</span><span class="braces">)</span> <span class="symbol">+</span> <span class="identifier">mPaint</span>.<span class="identifier">descent</span><span class="braces">(</span><span class="braces">)</span><span class="braces">)</span> <span class="symbol">+</span> <span class="identifier">mLineSpacing</span><span class="symbol">;</span>
 
-    int charCount = mPaint.breakText(mText, index, endCharIndex, true, maxWidth, null);
-    if (charCount &gt; 0) {
-        mLines.add(new int[]{index, index + charCount});
-        index += charCount;
-    }
-
-    if (index == newlineIndex) {
-        newlineIndex++;
-        index++;
-    }
-}
-</code></pre>
-
-<p>after that, we got the actually line count(<code>EntireLineCount</code>) by the entire input string.
-according to that we can measure width simply done by Paint.measureText() method. Use
-<code>EntireLineCount</code> we can decide should expand or not and measure height. when measure
-is <strong>done</strong>, we will inform the ellipsize mode via OnMeasureDoneListener who want to know
-it was changed. you can toggle the mode to expand/collapse via click-handler if there's
-not enough space for the input string(when EntireLineCount > MaxLineCount).</p>
-
-<p>In <strong>onDraw()</strong> method, we use <code>mDrawLineCount</code> to draw few lines that calculate by the
-<strong>measureHeight()</strong> method, if ellipsize needs, we will loop delete last line one char
-of the end then measure until enough to draw ellipsize text.</p>
-
-<pre><code>StringBuilder line = ...;
-float lineDrawWidth = mPaint.measureText(line, 0, line.length());
-float ellipsisWidth = mPaint.measureText(mStrEllipsis);
-
-// delete one char then measure until enough to draw ellipsize text
-while (lineDrawWidth + ellipsisWidth &gt; renderWidth) {
-    line.deleteCharAt(line.length() - 1);
-    lineDrawWidth = mPaint.measureText(line, 0, line.length());
-}
-line.append(mStrEllipsis);
-</code></pre>
-
-<h2 id="aproblemhappenduringondrawmethod.">A problem happen during onDraw() method.</h2>
-
-<p>Suppose you have a large string to display, the measure height is greater than screen
-height if you want to display entire string, but Android just offer the <strong>Canvas</strong> match
-the screen dimension in the <strong>onDraw()</strong> method, that means the Canvas dimension not rely your
-measure result. for example, you measure dimension is 720x1400 but Canvas dimension
-just 720x1280, therefore the expand mode doesn't show all lines. but the dimension of View
-is rely the measure result, it will be displayed as 720x1240 dimension. why this situation
-occur? because we calculate the used height after draw per line, if Canvas not enough space
-to draw next line, we will stop them. when disable that determine, the problem solved. I didn't
-figure out this problem, if you know how to do, please share to me.</p>
-
-<pre><code>while (some condition) {
-    // draw the current line.
-    canvas.drawText(line, 0, line.length(), canvasX, canvasY, mPaint);
-
-    canvasY += (-mPaint.ascent() + mPaint.descent()) + mLineSpacing;
-
-    // stop if canvas not enough space to draw next line
-    if (canvasY &gt; canvas.getHeight()) break;
-}
-</code></pre>
-
-<p>To be straightforward, a runtime screenshot attached.</p>
-
-<p><img src="/images/screenshot_of_ellipsize_textview.png" alt="EllipsizeTextView runtime screenshot" title="EllipsizeTextView runtime screenshot" id="ellipsizetextviewruntimescreenshot"></p>
-
-<p>Notes : This widget is pretty basic, it just support left-to-right text and
-ellipsize text end. it handled Chinese or some languages like Chinese,
-you can modify the <strong>breakText</strong> logic code to implement yourself.</p>
-
-<p>The full source code for EllipsizeTextView and the sample project on <a href="https://github.com/vince-styling/ellipsize-textview-android">GitHub</a>.</p>
-
-<h3 id="helpfulposts:">Helpful Posts :</h3>
-
-<ul>
-<li><a href="http://stackoverflow.com/questions/2160619/android-ellipsize-multiline-textview/6763689">android ellipsize multiline textview</a></li>
-<li><a href="https://code.google.com/p/android-textview-multiline-ellipse/">android-textview-multiline-ellipse</a></li>
-</ul>
-
+    <span class="comment">// stop if canvas not enough space to draw next line</span>
+    <span class="reserved_word">if</span> <span class="braces">(</span><span class="identifier">canvasY</span> <span class="symbol">&gt;</span> <span class="identifier">canvas</span>.<span class="identifier">getHeight</span><span class="braces">(</span><span class="braces">)</span><span class="braces">)</span> <span class="reserved_word">break</span><span class="symbol">;</span>
+<span class="braces">}</span></pre> 
+  <p>To be straightforward, a runtime screenshot attached.</p> 
+  <p><img src="/images/screenshot_of_ellipsize_textview.png" alt="EllipsizeTextView runtime screenshot" title="EllipsizeTextView runtime screenshot" id="ellipsizetextviewruntimescreenshot" /></p> 
+  <p>Notes : This widget is pretty basic, it just support left-to-right text and ellipsize text end. it handled Chinese or some languages like Chinese, you can modify the <strong>breakText</strong> logic code to implement yourself.</p> 
+  <p>The full source code for EllipsizeTextView and the sample project on <a href="https://github.com/vince-styling/ellipsize-textview-android">GitHub</a>.</p> 
+  <h3 id="helpfulposts:">Helpful Posts :</h3> 
+  <ul> 
+   <li><a href="http://stackoverflow.com/questions/2160619/android-ellipsize-multiline-textview/6763689">android ellipsize multiline textview</a></li> 
+   <li><a href="https://code.google.com/p/android-textview-multiline-ellipse/">android-textview-multiline-ellipse</a></li> 
+  </ul> 
+ </body>
+</html>
     </div>
     <hr class="disqus_thread_separator" />
     <div id="disqus_thread"></div>
