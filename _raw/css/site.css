@@ -29,7 +29,6 @@ ol, ul {
 body {
     border-top: 10px solid #f5f5f5;
     font-family: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("/images/bg-tile.png") repeat;
 }
 
 a {
@@ -328,7 +327,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .primary .post_list li {
-    background: url("/images/background-gray-light.jpg");
     margin: 0 0 10px 0;
     text-align: left;
     -webkit-border-radius: 5px;
