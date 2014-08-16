@@ -1,12 +1,8 @@
----
 title: release your project into maven repository via Sonatype
-layout: post
-format: markdown
-type: post
-tags: maven, sonatype, java
-timestamp: 1406973107
-slug: release-your-project-into-maven-repository-via-sonatype.html
----
+decorator: post
+description: Many time I tried to release my project into the Maven Central Repository, now I want to archive some experience in my blog.
+identifier: cb0ddc9e5ffb5daee2eb
+‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 
 Many time I tried to release my project into the Maven Central Repository, now I want to archive some experience in my blog.
 
@@ -14,18 +10,20 @@ first, you will need to have a JIRA account : [Create your JIRA account](https:/
 
 configure your JIRA account into the maven settings file `~/.m2/settings.xml`, add below information in right place :
 
-    <servers>
-        <server>
-            <id>sonatype-nexus-snapshots</id>
-            <username>Your Username</username>
-            <password>Your Password</password>
-        </server>
-        <server>
-            <id>sonatype-nexus-staging</id>
-            <username>Your Username</username>
-            <password>Your Password</password>
-        </server>
-    </servers>
+```xml
+<servers>
+    <server>
+        <id>sonatype-nexus-snapshots</id>
+        <username>Your Username</username>
+        <password>Your Password</password>
+    </server>
+    <server>
+        <id>sonatype-nexus-staging</id>
+        <username>Your Username</username>
+        <password>Your Password</password>
+    </server>
+</servers>
+```
 
 [Create a New Project Ticket(Issue)](https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134),
 fill out the detail information about your project, After the ticket is created, we start to waiting the **human review**,
@@ -35,9 +33,11 @@ you shall receive an e-mail notice indicating that the issue is Resolved, please
 Normally it takes less than 2 business days, If you don't receive that e-mail, you can leave a comment on the JIRA ticket with the username,
 the relate roles who assign to handle your issue will update the ticket, and if they write back as comment info like this :
 
-    Configuration has been prepared, now you can:
-    ...
-    please comment on this ticket when you promoted your first release, thanks
+```
+Configuration has been prepared, now you can:
+...
+please comment on this ticket when you promoted your first release, thanks
+```
 
 that means you can start to release your project.
 
@@ -45,7 +45,9 @@ that means you can start to release your project.
 
 Install `GnuPG` and generate a key pair :
 
-    $ gpg --gen-key
+```bash
+$ gpg --gen-key
+```
 
 If that was you first time to generate the key, remember your passphrase because it would reuse. but the key can be expire,
 if it does or you forgot the passphrase, you should delete the past key then re-generate a new key, but don't use a same name,
@@ -55,19 +57,23 @@ although you can release success but the name conflict will cause `signature fai
 After generated the key pair, we should take the public key and distribute it to the remote server,
 use `gpg -k` to show the key we just generate it :
 
-    $ gpg -k
+```shell
+$ gpg -k
 
-    /Users/vince/.gnupg/pubring.gpg
-    -------------------------------
-    pub   2048R/F526C615 2014-08-01 [expires: 2014-08-13]
-    uid                  lingyunxiao (lingyunxiao) <lingyunxiao@qq.com>
-    sub   2048R/F32F736E 2014-08-01 [expires: 2014-08-13]
+/Users/vince/.gnupg/pubring.gpg
+-------------------------------
+pub   2048R/F526C615 2014-08-01 [expires: 2014-08-13]
+uid                  lingyunxiao (lingyunxiao) <lingyunxiao@qq.com>
+sub   2048R/F32F736E 2014-08-01 [expires: 2014-08-13]
+```
 
 the output information like this, keep an eye of the `F526C615` string,
 it's your public key which you would distribute to,
 copy the `F526C615` place's string and send the key :
 
-    $ gpg --keyserver hkp://pgp.mit.edu --send-keys F526C615
+```shell
+$ gpg --keyserver hkp://pgp.mit.edu --send-keys F526C615
+```
 
 now, we need to going to make sure that we just only one key store in our computer, and if more,
 we must remove it to suppress the name conflict problem, there are two way to do this action,
@@ -80,94 +86,100 @@ right now, all work about GPG KEY is prepared, as supplement, you can check this
 
 ## Configure your project module
 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <project>
-        <!-- Important step : make sonatype as your project's root. -->
-        <parent>
-            <groupId>org.sonatype.oss</groupId>
-            <artifactId>oss-parent</artifactId>
-            <relativePath />
-            <version>7</version>
-        </parent>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <!-- Important step : make sonatype as your project's root. -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <relativePath />
+        <version>7</version>
+    </parent>
 
-        <!-- and the project description. -->
-        <groupId>com.vincestyling</groupId>
-        <artifactId>traversaless-viewpager</artifactId>
-        <version>4.0.1_r1-SNAPSHOT</version> <!-- here must declare as "-SNAPSHOT" phrase. -->
-        <packaging>jar</packaging>
+    <!-- and the project description. -->
+    <groupId>com.vincestyling</groupId>
+    <artifactId>traversaless-viewpager</artifactId>
+    <version>4.0.1_r1-SNAPSHOT</version> <!-- here must declare as "-SNAPSHOT" phrase. -->
+    <packaging>jar</packaging>
 
-        <url>https://github.com/vince-styling/traversaless-viewpager-android</url>
-        <description>Traversal less ViewPager widget for Android</description>
-        <inceptionYear>2014</inceptionYear>
+    <url>https://github.com/vince-styling/traversaless-viewpager-android</url>
+    <description>Traversal less ViewPager widget for Android</description>
+    <inceptionYear>2014</inceptionYear>
 
-        <licenses>
-            <license>
-                <name>Apache License Version 2.0</name>
-                <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-                <distribution>repo</distribution>
-            </license>
-        </licenses>
+    <licenses>
+        <license>
+            <name>Apache License Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-        <!-- Important step : maven will do few commit and tagging current version, so don't forget config scm. -->
-        <scm>
-            <connection>scm:git:git@github.com:vince-styling/traversaless-viewpager-android.git</connection>
-            <developerConnection>scm:git:git@github.com:vince-styling/traversaless-viewpager-android.git</developerConnection>
-            <url>git@github.com:vince-styling/traversaless-viewpager-android.git</url>
-            <tag>HEAD</tag>
-        </scm>
+    <!-- Important step : maven will do few commit and tagging current version, so don't forget config scm. -->
+    <scm>
+        <connection>scm:git:git@github.com:vince-styling/traversaless-viewpager-android.git</connection>
+        <developerConnection>scm:git:git@github.com:vince-styling/traversaless-viewpager-android.git</developerConnection>
+        <url>git@github.com:vince-styling/traversaless-viewpager-android.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.0</version>
-                    <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
-                    </configuration>
-                </plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
 
-                <plugin>
-                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                    <artifactId>android-maven-plugin</artifactId>
-                    <version>3.7.0</version>
-                    <configuration>
-                        <sdk>
-                            <platform>14</platform>
-                        </sdk>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <sdk>
+                        <platform>14</platform>
+                    </sdk>
+                </configuration>
+            </plugin>
 
-                <!-- Important step : config the maven release plugin. -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.4.2</version>
-                    <configuration>
-                        <goals>deploy</goals>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-    </project>
+            <!-- Important step : config the maven release plugin. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.2</version>
+                <configuration>
+                    <goals>deploy</goals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
 
 now we are going to release a snapshot version to the `Staging Repository` :
 
-    $ mvn release:clean
-    $ mvn release:prepare
-    $ mvn release:perform
+```shell
+$ mvn release:clean
+$ mvn release:prepare
+$ mvn release:perform
+```
 
 in the `prepare` goal, you shall be prompt to type the `GPG passphrase` several times, and maven will tagging your current version,
 commit two changes, finally push all modification to `remotes`. and if something wrong with the process, of course you should solve it,
 but before you do it again, you must discard those modification if maven does.
 
-    `10a55a3b5b9b4d473e78ccd0c60af0672d7adecd` is commit hash code before releasing.
-    $ git reset --hard 10a55a3b5b9b4d473e78ccd0c60af0672d7adecd
-    $ git tag -d TAG_NAME
-    $ git push origin :refs/tags/TAG_NAME
-    $ git push --force
+```shell
+`10a55a3b5b9b4d473e78ccd0c60af0672d7adecd` is commit hash code before releasing.
+$ git reset --hard 10a55a3b5b9b4d473e78ccd0c60af0672d7adecd
+$ git tag -d TAG_NAME
+$ git push origin :refs/tags/TAG_NAME
+$ git push --force
+```
 
 then perform the "release a snapshot version" operation again.
 

@@ -1,0 +1,16 @@
+title: Vince's styling | Home
+decorator: basic
+‡‡‡‡‡‡‡‡‡‡‡‡‡‡
+<div class="primary">
+    <ul class="post_list">
+        #foreach ($post : $posts)
+            <li title="${post:title}">
+                <a href="${post:link}">
+                    <span>${post:title}</span>
+                    <span>${post:createdate}</span>
+                    <p>${post:description}...</p>
+                </a>
+            </li>
+        #end
+    </ul>
+</div>

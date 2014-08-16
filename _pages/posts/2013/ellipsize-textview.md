@@ -1,12 +1,8 @@
----
 title: easily to know and switch the ellipsize mode of textview in Android
-layout: post
-format: markdown
-type: post
-tags: android, canvas, view
-timestamp: 1385469587
-slug: easily-to-know-and-switch-the-ellipsize-mode-of-textview-in-Android.html
----
+decorator: post
+description: As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode
+identifier: cc8d51653fd41c42bf79
+‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 
 As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode,
 but we can't find out how to know if TextView ellipsized, we want to know it because
@@ -22,29 +18,31 @@ attributes as you wanted.
 It all start by the onMeasure method, when onMeasure calling, we use Paint.breakText() to
 calculate the input string then store every line's start&end index.
 
-    int index = 0;
-    int newlineIndex = 0;
-    int endCharIndex = 0;
-    mLines = new ArrayList<int[]>(mMaxLineCount * 2);
+```java
+int index = 0;
+int newlineIndex = 0;
+int endCharIndex = 0;
+mLines = new ArrayList<int[]>(mMaxLineCount * 2);
 
-    // breakText line by line and store line's indices
-    while (index < mText.length()) {
-        if (index == newlineIndex) {
-            newlineIndex = mText.indexOf(NEW_LINE_STR, newlineIndex);
-            endCharIndex = (newlineIndex != -1) ? newlineIndex : mText.length();
-        }
-
-        int charCount = mPaint.breakText(mText, index, endCharIndex, true, maxWidth, null);
-        if (charCount > 0) {
-            mLines.add(new int[]{index, index + charCount});
-            index += charCount;
-        }
-
-        if (index == newlineIndex) {
-            newlineIndex++;
-            index++;
-        }
+// breakText line by line and store line's indices
+while (index < mText.length()) {
+    if (index == newlineIndex) {
+        newlineIndex = mText.indexOf(NEW_LINE_STR, newlineIndex);
+        endCharIndex = (newlineIndex != -1) ? newlineIndex : mText.length();
     }
+
+    int charCount = mPaint.breakText(mText, index, endCharIndex, true, maxWidth, null);
+    if (charCount > 0) {
+        mLines.add(new int[]{index, index + charCount});
+        index += charCount;
+    }
+
+    if (index == newlineIndex) {
+        newlineIndex++;
+        index++;
+    }
+}
+```
 
 after that, we got the actually line count(`EntireLineCount`) by the entire input string.
 according to that we can measure width simply done by Paint.measureText() method. Use
@@ -57,16 +55,18 @@ In **onDraw()** method, we use `mDrawLineCount` to draw few lines that calculate
 **measureHeight()** method, if ellipsize needs, we will loop delete last line one char
 of the end then measure until enough to draw ellipsize text.
 
-    StringBuilder line = ...;
-    float lineDrawWidth = mPaint.measureText(line, 0, line.length());
-    float ellipsisWidth = mPaint.measureText(mStrEllipsis);
+```java
+StringBuilder line = ...;
+float lineDrawWidth = mPaint.measureText(line, 0, line.length());
+float ellipsisWidth = mPaint.measureText(mStrEllipsis);
 
-    // delete one char then measure until enough to draw ellipsize text
-    while (lineDrawWidth + ellipsisWidth > renderWidth) {
-        line.deleteCharAt(line.length() - 1);
-        lineDrawWidth = mPaint.measureText(line, 0, line.length());
-    }
-    line.append(mStrEllipsis);
+// delete one char then measure until enough to draw ellipsize text
+while (lineDrawWidth + ellipsisWidth > renderWidth) {
+    line.deleteCharAt(line.length() - 1);
+    lineDrawWidth = mPaint.measureText(line, 0, line.length());
+}
+line.append(mStrEllipsis);
+```
 
 ## A problem happen during onDraw() method.
 
@@ -80,15 +80,17 @@ occur? because we calculate the used height after draw per line, if Canvas not e
 to draw next line, we will stop them. when disable that determine, the problem solved. I didn't
 figure out this problem, if you know how to do, please share to me.
 
-    while (some condition) {
-        // draw the current line.
-        canvas.drawText(line, 0, line.length(), canvasX, canvasY, mPaint);
+```java
+while (some condition) {
+    // draw the current line.
+    canvas.drawText(line, 0, line.length(), canvasX, canvasY, mPaint);
 
-        canvasY += (-mPaint.ascent() + mPaint.descent()) + mLineSpacing;
+    canvasY += (-mPaint.ascent() + mPaint.descent()) + mLineSpacing;
 
-        // stop if canvas not enough space to draw next line
-        if (canvasY > canvas.getHeight()) break;
-    }
+    // stop if canvas not enough space to draw next line
+    if (canvasY > canvas.getHeight()) break;
+}
+```
 
 To be straightforward, a runtime screenshot attached.
 
