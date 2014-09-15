@@ -1,20 +1,21 @@
 decorator: basic
 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡
-<div class="page-title">
-    <h1>${variable:title}</h1>
-    <div class="entry-meta">
+<div id="post-thumb">
+    <p class="title"><a>${variable:title}</a></p>
+    <p class="meta">
+        <i class="fa fa-pencil"></i>
         Posted on
         <span class="date">${variable:createtime}</span>
-        modify on
-        <span class="date">${variable:modifytime}</span>
-    </div>
-</div>
-<div class="primary">
-    <div class="post-thumb">
+        &emsp;
+        <i class="fa fa-edit"></i>
+        Modify on
+        <span class="date">${variable:modifytime}</span></p>
+    <div id="body">
         ${decorator:content}
     </div>
-    <hr class="disqus_thread_separator" />
-    <div id="disqus_thread"></div>
+    <div id="comments">
+        <div id="disqus_thread"></div>
+    </div>
     <script type="text/javascript">
         // a unique identifier for each page where Disqus is present
         var disqus_identifier = '${variable:identifier}';
@@ -29,4 +30,15 @@ decorator: basic
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     </script>
+    <div id="recent-posts">
+        <p>Recent posts on <strong>vincestyling.com</strong></p>
+        <ol class="post-list">
+            #foreach ($post : $posts desc 5)
+            <li class="item" title="${post:title}">
+                <span class="meta">${post:createdate}</span>
+                <a href="${post:link}">${post:title}</a>
+            </li>
+            #end
+        </ol>
+    </div>
 </div>

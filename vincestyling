@@ -1,0 +1,34 @@
+#!/bin/bash
+
+src_dir=~/dev/vincestyling.github.com
+dest_dir="$src_dir/site"
+line_numbers="true"
+toc_selection="h1,h2,h3"
+
+if [[ "$1" == "generate" ]]; then
+  diff=$([ "$2" == 'diff' ] && echo "true" || echo "false")
+
+  khaleesi generate --src-dir "$src_dir" --dest-dir "$dest_dir" --line-numbers $line_numbers \
+    --diff-plus $diff --toc-selection "$toc_selection"
+
+elif [[ "$1" == "serve" ]]; then
+  echo "serving $dest_dir"
+  ruby -run -e httpd $dest_dir -p 9090
+
+elif [[ "$1" == "build" ]]; then
+  temperary_dest_dir=~/tmp_site
+  mkdir $temperary_dest_dir
+
+  cd $src_dir
+
+  git checkout master
+
+  khaleesi build --src-dir "$src_dir" --dest-dir "$temperary_dest_dir" --line-numbers $line_numbers \
+    --toc-selection "$toc_selection" --highlighter pygments
+
+  git checkout gh-pages
+
+  rsync -acv $temperary_dest_dir/ .
+  rm -fr $temperary_dest_dir
+
+fi

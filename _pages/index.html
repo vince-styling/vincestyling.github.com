@@ -1,16 +1,22 @@
-title: Vince's styling | Home
+title: Home
+slug: index.html
 decorator: basic
 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡
-<div class="primary">
-    <ul class="post_list">
-        #foreach ($post : $posts)
-            <li title="${post:title}">
-                <a href="${post:link}">
-                    <span>${post:title}</span>
-                    <span>${post:createdate}</span>
-                    <p>${post:description}...</p>
-                </a>
-            </li>
-        #end
-    </ul>
+<div class="welcome">
+    <p><em>Welcome to vincestyling.com and thanks for checking out the frontpage.</em> <i class="fa fa-angellist"></i></p>
+    <p>
+        This is my personal tech blog where I record and share all things in my software development and other activities.
+        You can <a href="/about.html">read more about me</a> and my blog posts, checkout my <a href="#projects">open source projects</a>.
+    </p>
+</div>
+<div id="posts">
+    #foreach ($post : $posts desc)
+        <div class="post" title="${post:title}">
+            <h2 class="title">
+                <a href="${post:link}">${post:title}</a>
+            </h2>
+            <p class="meta">${post:createtime}</p>
+            <p class="summary">${post:description}</p>
+        </div>
+    #end
 </div>
