@@ -2,185 +2,330 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="/css/site.css" type="text/css" media="screen">
-    <title>release your project into maven repository via Sonatype</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="Vince Styling" name="author">
+    <meta content="a blog about all things in software engineering by vince styling." name="description">
+    <meta content="java, android, mac, git, ruby, ubuntu, css, jquery, perl, j2ee, geek, devops, software engineering, programming" name="keywords">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/site.css" media="screen" rel="stylesheet" type="text/css">
+    <title>release your project into maven repository via Sonatype — vince styling</title>
 </head>
 <body>
+<div class="topper">
     <div class="container">
-        <div class="header clearfix">
-            <span class="logo_txt">Vince's styling</span>
-            <div class="primary-nav">
-                <ul>
-                    <li><a href="http://apkinfoextractor.vincestyling.com/">ApkInfoExtractor</a></li>
-                    <li><a href="http://netroid.cn/">Netroid</a></li>
-                    <li><a href="https://github.com/vince-styling">GitHub</a></li>
-                    <li><a href="/">Home</a></li>
-                </ul>
+        <div class="navigation">
+            <h1 class="masthead">Vince<img src="/images/avatar.png"/>Styling</h1>
+            <div class="nav-list">
+                <a href="/">
+                    <i class="fa fa-home fa-2x"></i>
+                </a>
+                <a href="https://github.com/vince-styling" target="_blank">
+                    <i class="fa fa-github fa-2x"></i>
+                </a>
+                <a href="http://stackoverflow.com/users/1294681/vincestyling" target="_blank">
+                    <i class="fa fa-stack-overflow fa-2x"></i>
+                </a>
+                <a href="http://weibo.com/styling" target="_blank">
+                    <i class="fa fa-weibo fa-2x"></i>
+                </a>
+                <a href="/contact.html">
+                    <i class="fa fa-envelope-o fa-2x"></i>
+                </a>
             </div>
         </div>
-        <div class="clearfix">
-            <div class="page-title">
-    <h1>release your project into maven repository via Sonatype</h1>
-    <div class="entry-meta">
-        Posted on
-        <span class="date">Aug 02, 2014</span>
-        By
-        <span class="author">vince's styling</span>
-        Tags:
-        
-            <a href="/tags/maven.html" class="link">maven</a>, 
-        
-            <a href="/tags/sonatype.html" class="link">sonatype</a>, 
-        
-            <a href="/tags/java.html" class="link">java</a>
-        
     </div>
 </div>
-<div class="primary">
-    <div class="post-thumb">
-        <html>
- <head></head>
- <body>
-  <p>Many time I tried to release my project into the Maven Central Repository, now I want to archive some experience in my blog.</p> 
-  <p>first, you will need to have a JIRA account : <a href="https://issues.sonatype.org/secure/Signup!default.jspa">Create your JIRA account</a>.</p> 
-  <p>configure your JIRA account into the maven settings file <code>~/.m2/settings.xml</code>, add below information in right place :</p> 
-  <pre><span class="symbol">&lt;</span><span class="identifier">servers</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span><span class="identifier">server</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">id</span><span class="symbol">&gt;</span><span class="identifier">sonatype</span><span class="symbol">-</span><span class="identifier">nexus</span><span class="symbol">-</span><span class="identifier">snapshots</span><span class="symbol">&lt;</span>/<span class="identifier">id</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">username</span><span class="symbol">&gt;</span><span class="identifier">Your</span> <span class="identifier">Username</span><span class="symbol">&lt;</span>/<span class="identifier">username</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">password</span><span class="symbol">&gt;</span><span class="identifier">Your</span> <span class="identifier">Password</span><span class="symbol">&lt;</span>/<span class="identifier">password</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span>/<span class="identifier">server</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span><span class="identifier">server</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">id</span><span class="symbol">&gt;</span><span class="identifier">sonatype</span><span class="symbol">-</span><span class="identifier">nexus</span><span class="symbol">-</span><span class="identifier">staging</span><span class="symbol">&lt;</span>/<span class="identifier">id</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">username</span><span class="symbol">&gt;</span><span class="identifier">Your</span> <span class="identifier">Username</span><span class="symbol">&lt;</span>/<span class="identifier">username</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">password</span><span class="symbol">&gt;</span><span class="identifier">Your</span> <span class="identifier">Password</span><span class="symbol">&lt;</span>/<span class="identifier">password</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span>/<span class="identifier">server</span><span class="symbol">&gt;</span>
-<span class="symbol">&lt;</span>/<span class="identifier">servers</span><span class="symbol">&gt;</span></pre> 
-  <p><a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134">Create a New Project Ticket(Issue)</a>, fill out the detail information about your project, After the ticket is created, we start to waiting the <strong>human review</strong>, Sonatype will prepare Maven repositories for you then update the ticket and set it as &quot;Resolved&quot; once it's done. you shall receive an e-mail notice indicating that the issue is Resolved, please do not deploy until you received it.</p> 
-  <p>Normally it takes less than 2 business days, If you don't receive that e-mail, you can leave a comment on the JIRA ticket with the username, the relate roles who assign to handle your issue will update the ticket, and if they write back as comment info like this :</p> 
-  <pre><span class="identifier">Configuration</span> <span class="identifier">has</span> <span class="identifier">been</span> <span class="identifier">prepared</span>, <span class="identifier">now</span> <span class="identifier">you</span> <span class="identifier">can</span><span class="symbol">:</span>
+<div class="container">
+    <div class="main">
+        <div id="post-thumb">
+    <a class="title">release your project into maven repository via Sonatype</a>
+    <p class="meta">
+        <i class="fa fa-pencil"></i> Posted on Sun  3 Aug 00:27 2014&emsp;
+        <i class="fa fa-edit"></i> Modify on Mon 15 Sep 23:06 2014
+    </p>
+    <div id="body">
+        <p>Maven is the popular place where to hosted our java open source projects so we can share with others more simply. Many time i&#39;ve been release my project into the Maven Central Repository, that process is a bit of complication and easy to forget. Unfortunately i didn&#39;t figure out a complete walking guidance to help, thus i decide to archive myself experience in my blog.</p>
+
+<p>If you did the search for this knowledge ever, you surely aware that the most people knows approach is work with Sonatype, of course i&#39;m follow that way as well.</p>
+
+<h1 id="guidance">Guidance</h1>
+
+<p>First, you will need to <a href="https://issues.sonatype.org/secure/Signup!default.jspa">register a JIRA account</a>, then configure that account on the maven settings file <code>~/.m2/settings.xml</code>, add below information in right place :</p>
+<div class="highlight xml"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></td><td><pre><span class="nt">&lt;servers&gt;</span>
+    <span class="nt">&lt;server&gt;</span>
+        <span class="nt">&lt;id&gt;</span>sonatype-nexus-snapshots<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;username&gt;</span>[Your Username]<span class="nt">&lt;/username&gt;</span>
+        <span class="nt">&lt;password&gt;</span>[Your Password]<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;/server&gt;</span>
+    <span class="nt">&lt;server&gt;</span>
+        <span class="nt">&lt;id&gt;</span>sonatype-nexus-staging<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;username&gt;</span>[Your Username]<span class="nt">&lt;/username&gt;</span>
+        <span class="nt">&lt;password&gt;</span>[Your Password]<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;/servers&gt;</span>
+</pre>
+</td></tr></table></div>
+<p>Secondly, <a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134">create an Issue of your project</a> and fill up the project&#39;s information you can find. After that, we start to waiting the <code>human review</code>, Sonatype will prepare Maven repositories for us and set the issue status as <strong>Resolved</strong> once it get done. We&#39;ll receive an e-mail notice indicating that the issue is resolved, please do not deploy until you received it. Normally this step would takes less than 2 business days, if you havent receive that e-mail, you can leave a comment on the JIRA issue consider as remind them. The relate role who assign to handle your issue will update it quickly. If they write back as comment info like following, that means you can start to release your project.</p>
+<div class="highlight text"><table><tr><td class="linenos"><pre>1
+2
+3</pre></td><td><pre>Configuration has been prepared, now you can:
 ...
-<span class="identifier">please</span> <span class="identifier">comment</span> <span class="identifier">on</span> <span class="reserved_word">this</span> <span class="identifier">ticket</span> <span class="identifier">when</span> <span class="identifier">you</span> <span class="identifier">promoted</span> <span class="identifier">your</span> <span class="identifier">first</span> <span class="identifier">release</span>, <span class="identifier">thanks</span></pre> 
-  <p>that means you can start to release your project.</p> 
-  <h2 id="preparethegpgkey:">Prepare the GPG key :</h2> 
-  <p>Install <code>GnuPG</code> and generate a key pair :</p> 
-  <pre>$ <span class="identifier">gpg</span> <span class="symbol">-</span><span class="symbol">-</span><span class="identifier">gen</span><span class="symbol">-</span><span class="identifier">key</span></pre> 
-  <p>If that was you first time to generate the key, remember your passphrase because it would reuse. but the key can be expire, if it does or you forgot the passphrase, you should delete the past key then re-generate a new key, but don't use a same name, i.e if last you generate the key names <code>vincestyling</code>, then you can't use it again, this will cause a name conflict in the key server, although you can release success but the name conflict will cause <code>signature failed</code> when you try to close the Staging Repository.</p> 
-  <p>After generated the key pair, we should take the public key and distribute it to the remote server, use <code>gpg -k</code> to show the key we just generate it :</p> 
-  <pre>$ <span class="identifier">gpg</span> <span class="symbol">-</span><span class="identifier">k</span>
+please comment on this issue when you promoted your first release, thanks
+</pre>
+</td></tr></table></div>
+<h2 id="prepare-the-gpg-key">Prepare the GPG key</h2>
 
-/<span class="identifier">Users</span>/<span class="identifier">vince</span>/.<span class="identifier">gnupg</span>/<span class="identifier">pubring</span>.<span class="identifier">gpg</span>
-<span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span><span class="symbol">-</span>
-<span class="identifier">pub</span>   2048R/<span class="identifier">F526C615</span> <span class="numeric">2014</span><span class="symbol">-</span><span class="numeric">08</span><span class="symbol">-</span><span class="numeric">01</span> <span class="braces">[</span><span class="identifier">expires</span><span class="symbol">:</span> <span class="numeric">2014</span><span class="symbol">-</span><span class="numeric">08</span><span class="symbol">-</span><span class="numeric">13</span><span class="braces">]</span>
-<span class="identifier">uid</span>                  <span class="identifier">lingyunxiao</span> <span class="braces">(</span><span class="identifier">lingyunxiao</span><span class="braces">)</span> <span class="symbol">&lt;</span><span class="identifier">lingyunxiao</span>@<span class="identifier">qq</span>.<span class="identifier">com</span><span class="symbol">&gt;</span>
-<span class="identifier">sub</span>   2048R/<span class="identifier">F32F736E</span> <span class="numeric">2014</span><span class="symbol">-</span><span class="numeric">08</span><span class="symbol">-</span><span class="numeric">01</span> <span class="braces">[</span><span class="identifier">expires</span><span class="symbol">:</span> <span class="numeric">2014</span><span class="symbol">-</span><span class="numeric">08</span><span class="symbol">-</span><span class="numeric">13</span><span class="braces">]</span></pre> 
-  <p>the output information like this, keep an eye of the <code>F526C615</code> string, it's your public key which you would distribute to, copy the <code>F526C615</code> place's string and send the key :</p> 
-  <pre>$ <span class="identifier">gpg</span> <span class="symbol">-</span><span class="symbol">-</span><span class="identifier">keyserver</span> <span class="identifier">hkp</span><span class="symbol">:</span><span class="comment">//pgp.mit.edu --send-keys F526C615</span></pre> 
-  <p>now, we need to going to make sure that we just only one key store in our computer, and if more, we must remove it to suppress the name conflict problem, there are two way to do this action, first you can use command <code>gpg --delete-keys</code>, the other way is install the Graphic Application &quot;GPG keychain Access&quot; to do it :</p> 
-  <p><img src="/images/release_to_maven_keychain.png" alt="GPG keychain Access" title="GPG keychain Access" id="gpgkeychainaccess" /></p> 
-  <p>right now, all work about GPG KEY is prepared, as supplement, you can check this <a href="http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven">link</a> for more details.</p> 
-  <h2 id="configureyourprojectmodule">Configure your project module</h2> 
-  <pre><span class="symbol">&lt;</span>?<span class="identifier">xml</span> <span class="identifier">version</span><span class="symbol">=</span><span class="string">&quot;1.0&quot;</span> <span class="identifier">encoding</span><span class="symbol">=</span><span class="string">&quot;UTF-8&quot;</span>?<span class="symbol">&gt;</span>
-<span class="symbol">&lt;</span><span class="identifier">project</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span><span class="symbol">!</span><span class="symbol">-</span><span class="symbol">-</span> <span class="identifier">Important</span> <span class="identifier">step</span> <span class="symbol">:</span> <span class="identifier">make</span> <span class="identifier">sonatype</span> <span class="identifier">as</span> <span class="identifier">your</span> <span class="identifier">project</span><span class="string">'s root. --&gt;
-    &lt;parent&gt;
-        &lt;groupId&gt;org.sonatype.oss&lt;/groupId&gt;
-        &lt;artifactId&gt;oss-parent&lt;/artifactId&gt;
-        &lt;relativePath /&gt;
-        &lt;version&gt;7&lt;/version&gt;
-    &lt;/parent&gt;
+<p>Find your way to install <code>GnuPG</code> then use it to generate a key pair :</p>
+<div class="highlight bash"><table><tr><td class="linenos"><pre>1</pre></td><td><pre>~ <span class="nv">$ </span>gpg --gen-key
+</pre>
+</td></tr></table></div>
+<p>If it&#39;s your first time to generate the key, make yourself never forget the passphrase because it would be required in next time you release an artifact, i encounter the passphrase lost problem before, it was too bored for get back this, so don&#39;t make the same mistake i made. If you sadly forgot the passphrase or the key was expired, you should delete the past key then re-generate a new key, don&#39;t use a duplicate key name at all. e.g. if you ever generated a key named <code>vincestyling</code>, then you couldn&#39;t use it again, it would be causing a name conflict in the key server. Although you can release successful, but the name conflict will let you get some fatal error like <code>signature failed</code> when you try to close the Staging Repository in future.</p>
 
-    &lt;!-- and the project description. --&gt;
-    &lt;groupId&gt;com.vincestyling&lt;/groupId&gt;
-    &lt;artifactId&gt;traversaless-viewpager&lt;/artifactId&gt;
-    &lt;version&gt;4.0.1_r1-SNAPSHOT&lt;/version&gt; &lt;!-- here must declare as &quot;-SNAPSHOT&quot; phrase. --&gt;
-    &lt;packaging&gt;jar&lt;/packaging&gt;
+<p>After generated the key pair, we should take the public key and distribute it to the remote server, use <code>gpg -k</code> to grab the key we just had :</p>
+<div class="highlight bash"><table><tr><td class="linenos"><pre>1
+2
+3
+4
+5
+6
+7</pre></td><td><pre>~ <span class="nv">$ </span>gpg -k
 
-    &lt;url&gt;https://github.com/vince-styling/traversaless-viewpager-android&lt;/url&gt;
-    &lt;description&gt;Traversal less ViewPager widget for Android&lt;/description&gt;
-    &lt;inceptionYear&gt;2014&lt;/inceptionYear&gt;
+/Users/vince/.gnupg/pubring.gpg
+-------------------------------
+pub   2048R/F526C615 2014-08-01 <span class="o">[</span>expires: 2014-08-13<span class="o">]</span>
+uid                  lingyunxiao <span class="o">(</span>lingyunxiao<span class="o">)</span> &lt;lingyunxiao@qq.com&gt;
+sub   2048R/F32F736E 2014-08-01 <span class="o">[</span>expires: 2014-08-13<span class="o">]</span>
+</pre>
+</td></tr></table></div>
+<p>That output information like above, keep an eye of the <code>F526C615</code> string, it&#39;s your public key which you would distribute to, copy the <code>F526C615</code> place&#39;s string then send the key :</p>
+<div class="highlight bash"><table><tr><td class="linenos"><pre>1</pre></td><td><pre>~ <span class="nv">$ </span>gpg --keyserver hkp://pgp.mit.edu --send-keys F526C615
+</pre>
+</td></tr></table></div>
+<p>To be safely, we need to make sure that just only one key we have in our computer. If more, we must remove the rest to prevent the name conflict problem. There are two way to do this action, first you can use command <code>gpg --delete-keys</code>, the other way is install the Graphic Application &quot;GPG keychain Access&quot; to checking this :</p>
 
-    &lt;licenses&gt;
-        &lt;license&gt;
-            &lt;name&gt;Apache License Version 2.0&lt;/name&gt;
-            &lt;url&gt;http://www.apache.org/licenses/LICENSE-2.0.txt&lt;/url&gt;
-            &lt;distribution&gt;repo&lt;/distribution&gt;
-        &lt;/license&gt;
-    &lt;/licenses&gt;
+<p><img src="/images/release_to_maven_keychain.png" alt="GPG keychain Access" title="GPG keychain Access"/></p>
 
-    &lt;!-- Important step : maven will do few commit and tagging current version, so don'</span><span class="identifier">t</span> <span class="identifier">forget</span> <span class="identifier">config</span> <span class="identifier">scm</span>. <span class="symbol">-</span><span class="symbol">-</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span><span class="identifier">scm</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">connection</span><span class="symbol">&gt;</span><span class="identifier">scm</span><span class="symbol">:</span><span class="identifier">git</span><span class="symbol">:</span><span class="identifier">git</span>@<span class="identifier">github</span>.<span class="identifier">com</span><span class="symbol">:</span><span class="identifier">vince</span><span class="symbol">-</span><span class="identifier">styling</span>/<span class="identifier">traversaless</span><span class="symbol">-</span><span class="identifier">viewpager</span><span class="symbol">-</span><span class="identifier">android</span>.<span class="identifier">git</span><span class="symbol">&lt;</span>/<span class="identifier">connection</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">developerConnection</span><span class="symbol">&gt;</span><span class="identifier">scm</span><span class="symbol">:</span><span class="identifier">git</span><span class="symbol">:</span><span class="identifier">git</span>@<span class="identifier">github</span>.<span class="identifier">com</span><span class="symbol">:</span><span class="identifier">vince</span><span class="symbol">-</span><span class="identifier">styling</span>/<span class="identifier">traversaless</span><span class="symbol">-</span><span class="identifier">viewpager</span><span class="symbol">-</span><span class="identifier">android</span>.<span class="identifier">git</span><span class="symbol">&lt;</span>/<span class="identifier">developerConnection</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">url</span><span class="symbol">&gt;</span><span class="identifier">git</span>@<span class="identifier">github</span>.<span class="identifier">com</span><span class="symbol">:</span><span class="identifier">vince</span><span class="symbol">-</span><span class="identifier">styling</span>/<span class="identifier">traversaless</span><span class="symbol">-</span><span class="identifier">viewpager</span><span class="symbol">-</span><span class="identifier">android</span>.<span class="identifier">git</span><span class="symbol">&lt;</span>/<span class="identifier">url</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">tag</span><span class="symbol">&gt;</span><span class="identifier">HEAD</span><span class="symbol">&lt;</span>/<span class="identifier">tag</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span>/<span class="identifier">scm</span><span class="symbol">&gt;</span>
+<p>Eventually, we&#39;ve been prepare all jobs about GPG KEY. As supplement, you can pay attention with this <a href="http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven">post</a> for more details.</p>
 
-    <span class="symbol">&lt;</span><span class="identifier">build</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span><span class="identifier">plugins</span><span class="symbol">&gt;</span>
-            <span class="symbol">&lt;</span><span class="identifier">plugin</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">groupId</span><span class="symbol">&gt;</span><span class="identifier">org</span>.<span class="identifier">apache</span>.<span class="identifier">maven</span>.<span class="identifier">plugins</span><span class="symbol">&lt;</span>/<span class="identifier">groupId</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">artifactId</span><span class="symbol">&gt;</span><span class="identifier">maven</span><span class="symbol">-</span><span class="identifier">compiler</span><span class="symbol">-</span><span class="identifier">plugin</span><span class="symbol">&lt;</span>/<span class="identifier">artifactId</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">version</span><span class="symbol">&gt;</span><span class="numeric">3.0</span><span class="symbol">&lt;</span>/<span class="identifier">version</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">configuration</span><span class="symbol">&gt;</span>
-                    <span class="symbol">&lt;</span><span class="identifier">source</span><span class="symbol">&gt;</span><span class="numeric">1.6</span><span class="symbol">&lt;</span>/<span class="identifier">source</span><span class="symbol">&gt;</span>
-                    <span class="symbol">&lt;</span><span class="identifier">target</span><span class="symbol">&gt;</span><span class="numeric">1.6</span><span class="symbol">&lt;</span>/<span class="identifier">target</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span>/<span class="identifier">configuration</span><span class="symbol">&gt;</span>
-            <span class="symbol">&lt;</span>/<span class="identifier">plugin</span><span class="symbol">&gt;</span>
+<h2 id="configure-your-project-module">Configure your project module</h2>
 
-            <span class="symbol">&lt;</span><span class="identifier">plugin</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">groupId</span><span class="symbol">&gt;</span><span class="identifier">com</span>.<span class="identifier">jayway</span>.<span class="identifier">maven</span>.<span class="identifier">plugins</span>.<span class="identifier">android</span>.<span class="identifier">generation2</span><span class="symbol">&lt;</span>/<span class="identifier">groupId</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">artifactId</span><span class="symbol">&gt;</span><span class="identifier">android</span><span class="symbol">-</span><span class="identifier">maven</span><span class="symbol">-</span><span class="identifier">plugin</span><span class="symbol">&lt;</span>/<span class="identifier">artifactId</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">version</span><span class="symbol">&gt;</span><span class="numeric">3.7</span><span class="numeric">.0</span><span class="symbol">&lt;</span>/<span class="identifier">version</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">configuration</span><span class="symbol">&gt;</span>
-                    <span class="symbol">&lt;</span><span class="identifier">sdk</span><span class="symbol">&gt;</span>
-                        <span class="symbol">&lt;</span><span class="identifier">platform</span><span class="symbol">&gt;</span><span class="numeric">14</span><span class="symbol">&lt;</span>/<span class="identifier">platform</span><span class="symbol">&gt;</span>
-                    <span class="symbol">&lt;</span>/<span class="identifier">sdk</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span>/<span class="identifier">configuration</span><span class="symbol">&gt;</span>
-            <span class="symbol">&lt;</span>/<span class="identifier">plugin</span><span class="symbol">&gt;</span>
+<p>In the project module you wish to publishing, configure some necessary message included accept sonatype as module&#39;s parent, apply a <code>Snapshot</code> version number, configure the <code>scm</code> information, configure maven release <code>plugin</code> etc.</p>
+<div class="highlight xml"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre></td><td><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;project&gt;</span>
+    <span class="c">&lt;!-- Important step : make sonatype as your project&#39;s root. --&gt;</span>
+    <span class="nt">&lt;parent&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.sonatype.oss<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>oss-parent<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;relativePath</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;version&gt;</span>7<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/parent&gt;</span>
 
-            <span class="symbol">&lt;</span><span class="symbol">!</span><span class="symbol">-</span><span class="symbol">-</span> <span class="identifier">Important</span> <span class="identifier">step</span> <span class="symbol">:</span> <span class="identifier">config</span> <span class="identifier">the</span> <span class="identifier">maven</span> <span class="identifier">release</span> <span class="identifier">plugin</span>. <span class="symbol">-</span><span class="symbol">-</span><span class="symbol">&gt;</span>
-            <span class="symbol">&lt;</span><span class="identifier">plugin</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">groupId</span><span class="symbol">&gt;</span><span class="identifier">org</span>.<span class="identifier">apache</span>.<span class="identifier">maven</span>.<span class="identifier">plugins</span><span class="symbol">&lt;</span>/<span class="identifier">groupId</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">artifactId</span><span class="symbol">&gt;</span><span class="identifier">maven</span><span class="symbol">-</span><span class="identifier">release</span><span class="symbol">-</span><span class="identifier">plugin</span><span class="symbol">&lt;</span>/<span class="identifier">artifactId</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">version</span><span class="symbol">&gt;</span><span class="numeric">2.4</span><span class="numeric">.2</span><span class="symbol">&lt;</span>/<span class="identifier">version</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span><span class="identifier">configuration</span><span class="symbol">&gt;</span>
-                    <span class="symbol">&lt;</span><span class="identifier">goals</span><span class="symbol">&gt;</span><span class="identifier">deploy</span><span class="symbol">&lt;</span>/<span class="identifier">goals</span><span class="symbol">&gt;</span>
-                    <span class="symbol">&lt;</span><span class="identifier">autoVersionSubmodules</span><span class="symbol">&gt;</span><span class="reserved_word">true</span><span class="symbol">&lt;</span>/<span class="identifier">autoVersionSubmodules</span><span class="symbol">&gt;</span>
-                <span class="symbol">&lt;</span>/<span class="identifier">configuration</span><span class="symbol">&gt;</span>
-            <span class="symbol">&lt;</span>/<span class="identifier">plugin</span><span class="symbol">&gt;</span>
-        <span class="symbol">&lt;</span>/<span class="identifier">plugins</span><span class="symbol">&gt;</span>
-    <span class="symbol">&lt;</span>/<span class="identifier">build</span><span class="symbol">&gt;</span>
-<span class="symbol">&lt;</span>/<span class="identifier">project</span><span class="symbol">&gt;</span></pre> 
-  <p>now we are going to release a snapshot version to the <code>Staging Repository</code> :</p> 
-  <pre>$ <span class="identifier">mvn</span> <span class="identifier">release</span><span class="symbol">:</span><span class="identifier">clean</span>
-$ <span class="identifier">mvn</span> <span class="identifier">release</span><span class="symbol">:</span><span class="identifier">prepare</span>
-$ <span class="identifier">mvn</span> <span class="identifier">release</span><span class="symbol">:</span><span class="identifier">perform</span></pre> 
-  <p>in the <code>prepare</code> goal, you shall be prompt to type the <code>GPG passphrase</code> several times, and maven will tagging your current version, commit two changes, finally push all modification to <code>remotes</code>. and if something wrong with the process, of course you should solve it, but before you do it again, you must discard those modification if maven does.</p> 
-  <pre>`10a55a3b5b9b4d473e78ccd0c60af0672d7adecd` <span class="identifier">is</span> <span class="identifier">commit</span> <span class="identifier">hash</span> <span class="identifier">code</span> <span class="identifier">before</span> <span class="identifier">releasing</span>.
-$ <span class="identifier">git</span> <span class="identifier">reset</span> <span class="symbol">-</span><span class="symbol">-</span><span class="identifier">hard</span> 10a55a3b5b9b4d473e78ccd0c60af0672d7adecd
-$ <span class="identifier">git</span> <span class="identifier">tag</span> <span class="symbol">-</span><span class="identifier">d</span> <span class="identifier">TAG_NAME</span>
-$ <span class="identifier">git</span> <span class="identifier">push</span> <span class="identifier">origin</span> <span class="symbol">:</span><span class="identifier">refs</span>/<span class="identifier">tags</span>/<span class="identifier">TAG_NAME</span>
-$ <span class="identifier">git</span> <span class="identifier">push</span> <span class="symbol">-</span><span class="symbol">-</span><span class="identifier">force</span></pre> 
-  <p>then perform the &quot;release a snapshot version&quot; operation again.</p> 
-  <h2 id="releaseitinthesonatype">Release it in the Sonatype</h2> 
-  <p>To release your artifacts, open your favorite browser and go to <a href="https://oss.sonatype.org/">https://oss.sonatype.org/</a>, of course you should use first step's account to <code>Log In</code>, then go to the <code>Build Promotion</code> tab's <code>Staging Repositories</code> which in the left pane, find out the Repository that you just release(normally at the list bottom), click the &quot;Close&quot; button then do the rest.</p> 
-  <p><img src="/images/release_to_maven_release_it.png" alt="Release It" title="Release It" id="releaseit" /></p> 
-  <p>Sometime you'll get the error like 'signature failed' that remind you to solve the GPG Key pair conflict problem, If happen, you should drop the artifacts, then re-release again. ensure the &quot;Activity&quot; field says &quot;Last operation completed successfully&quot; before you move on.</p> 
-  <p><img src="/images/release_to_maven_release_it_errors.png" alt="Release It" title="Release It" id="releaseit" /></p> 
-  <p>if you didn't see any error in the bottom &quot;Activity&quot; pane, you'll see the &quot;Release&quot; button enable quickly, keep Refresh the Repositories if you didn't get it, now it's time to do the final step :</p> 
-  <p><img src="/images/release_to_maven_release_it_final.png" alt="Release It" title="Release It" id="releaseit" /></p> 
-  <p>Congratulation, you've done all job about release, after you successfully release, your component will be published to Central, the best way to validate whether success or not is search your artifacts in <a href="search.maven.org">search.maven.org</a>, but it may take time before your artifacts appear, typically within 10 minutes even hours, so be patient with it.</p> 
-  <p>I follow this <a href="http://central.sonatype.org/pages/ossrh-guide.html">guide</a> all the time, and <a href="https://docs.sonatype.org/pages/diffpages.action?pageId=6619209&amp;originalId=13598740">this</a>, as supplement, below is my two release ticket to record.</p> 
-  <p><a href="https://issues.sonatype.org/browse/OSSRH-9739">OSSRH-9739</a> <a href="https://issues.sonatype.org/browse/OSSRH-10903">OSSRH-10903</a></p> 
- </body>
-</html>
+    <span class="c">&lt;!-- add the project description. --&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.vincestyling<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>traversaless-viewpager<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="c">&lt;!-- here must declare as &quot;-SNAPSHOT&quot; phrase. --&gt;</span>
+    <span class="nt">&lt;version&gt;</span>4.0.1_r1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+
+    <span class="nt">&lt;url&gt;</span>https://github.com/vince-styling/traversaless-viewpager-android<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Traversal less ViewPager widget for Android<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;inceptionYear&gt;</span>2014<span class="nt">&lt;/inceptionYear&gt;</span>
+
+    <span class="nt">&lt;licenses&gt;</span>
+        <span class="nt">&lt;license&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Apache License Version 2.0<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;url&gt;</span>http://www.apache.org/licenses/LICENSE-2.0.txt<span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;distribution&gt;</span>repo<span class="nt">&lt;/distribution&gt;</span>
+        <span class="nt">&lt;/license&gt;</span>
+    <span class="nt">&lt;/licenses&gt;</span>
+
+    <span class="c">&lt;!-- Important step : maven will commit a few version and</span>
+<span class="c">            tagging the release version, so don&#39;t forget this. --&gt;</span>
+    <span class="nt">&lt;scm&gt;</span>
+        <span class="nt">&lt;connection&gt;</span>scm:git:git@github.com:vince-styling/traversaless-viewpager-android.git<span class="nt">&lt;/connection&gt;</span>
+        <span class="nt">&lt;developerConnection&gt;</span>scm:git:git@github.com:vince-styling/traversaless-viewpager-android.git<span class="nt">&lt;/developerConnection&gt;</span>
+        <span class="nt">&lt;url&gt;</span>git@github.com:vince-styling/traversaless-viewpager-android.git<span class="nt">&lt;/url&gt;</span>
+        <span class="nt">&lt;tag&gt;</span>HEAD<span class="nt">&lt;/tag&gt;</span>
+    <span class="nt">&lt;/scm&gt;</span>
+
+    <span class="nt">&lt;build&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;</span>3.0<span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;configuration&gt;</span>
+                    <span class="nt">&lt;source&gt;</span>1.6<span class="nt">&lt;/source&gt;</span>
+                    <span class="nt">&lt;target&gt;</span>1.6<span class="nt">&lt;/target&gt;</span>
+                <span class="nt">&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>com.jayway.maven.plugins.android.generation2<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>android-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;</span>3.7.0<span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;configuration&gt;</span>
+                    <span class="nt">&lt;sdk&gt;</span>
+                        <span class="nt">&lt;platform&gt;</span>14<span class="nt">&lt;/platform&gt;</span>
+                    <span class="nt">&lt;/sdk&gt;</span>
+                <span class="nt">&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+
+            <span class="c">&lt;!-- Important step : config the maven release plugin. --&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>maven-release-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;</span>2.4.2<span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;configuration&gt;</span>
+                    <span class="nt">&lt;goals&gt;</span>deploy<span class="nt">&lt;/goals&gt;</span>
+                    <span class="nt">&lt;autoVersionSubmodules&gt;</span>true<span class="nt">&lt;/autoVersionSubmodules&gt;</span>
+                <span class="nt">&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre>
+</td></tr></table></div>
+<p>Now we are going to release a snapshot version to the <code>Staging Repository</code>, open your Terminal and point to following commands :</p>
+<div class="highlight bash"><table><tr><td class="linenos"><pre>1
+2
+3</pre></td><td><pre>~ <span class="nv">$ </span>mvn release:clean
+~ <span class="nv">$ </span>mvn release:prepare
+~ <span class="nv">$ </span>mvn release:perform
+</pre>
+</td></tr></table></div>
+<p>In the <code>prepare</code> goal, Maven would ask you the <code>GPG passphrase</code> several times, also tagging your current version, commit two changes, push all modification to the <code>remotes</code> at last. Because Maven did a few VCS operations, thus we should rollback them if we got something wrong with this release process.</p>
+<div class="highlight bash"><table><tr><td class="linenos"><pre>1
+2
+3
+4
+5</pre></td><td><pre><span class="sb">`</span>10a55a3b5b9b4d473e78ccd0c60af0672d7adecd<span class="sb">`</span> is commit <span class="nb">hash </span>code before release.
+~ <span class="nv">$ </span>git reset --hard 10a55a3b5b9b4d473e78ccd0c60af0672d7adecd
+~ <span class="nv">$ </span>git tag -d TAG_NAME
+~ <span class="nv">$ </span>git push origin :refs/tags/TAG_NAME
+~ <span class="nv">$ </span>git push --force
+</pre>
+</td></tr></table></div>
+<p>Then perform the &quot;release a snapshot version&quot; operation again.</p>
+
+<h2 id="release-it-in-the-sonatype">Release it in the Sonatype</h2>
+
+<p>After above release was done successfully, we are ready to do the next job in Sonatype. To release the artifact, open your favorite browser and navigate to <a href="https://oss.sonatype.org/">https://oss.sonatype.org/</a>. You should <code>Log In</code> by the earlier account, then go to the <code>Build Promotion</code> tab&#39;s <code>Staging Repositories</code> which in the left pane, find out the Repository that you just release(normally at the list bottom), click the &quot;Close&quot; button then do the rest.</p>
+
+<p><img src="/images/release_to_maven_release_it.png" alt="Release It" title="Release It"/></p>
+
+<p>Sometime you&#39;ll get the error like &#39;signature failed&#39;, remind you to solve the GPG Key pair conflict problem. If happens, you should drop the artifact, then re-release again. Ensure the &quot;Activity&quot; field says &quot;Last operation completed successfully&quot; before you move on.</p>
+
+<p><img src="/images/release_to_maven_release_it_errors.png" alt="Release It" title="Release It"/></p>
+
+<p>If you didn&#39;t see any error in the bottom &quot;Activity&quot; pane, means the <code>Release</code> button might already be enable, keep Refresh the Repositories if you didn&#39;t get it, now it&#39;s time to do the final step :</p>
+
+<p><img src="/images/release_to_maven_release_it_final.png" alt="Release It" title="Release It"/></p>
+
+<p>Congratulation, you&#39;ve done all job about release, once you get successfully, your artifact will be synchronize to the Maven Central soon enough. The best way to verify whether success or not is search your artifact in <a href="search.maven.org">search.maven.org</a>, but it may take time before your artifact display, typically within 10 minutes even hours, so be patient with it.</p>
+
+<p>Throughout this improvement of my ability process, i referenced many articles, it would be detailedly to mark them in the end. I follow this <a href="http://central.sonatype.org/pages/ossrh-guide.html">guide</a> and <a href="https://docs.sonatype.org/pages/diffpages.action?pageId=6619209&amp;originalId=13598740">docs</a> in Sonatype all the time. Also below is my two release issue to record.</p>
+
+<ul>
+<li><a href="https://issues.sonatype.org/browse/OSSRH-9739">OSSRH-9739</a></li>
+<li><a href="https://issues.sonatype.org/browse/OSSRH-10903">OSSRH-10903</a></li>
+</ul>
+
     </div>
-    <hr class="disqus_thread_separator" />
-    <div id="disqus_thread"></div>
+    <div id="comments">
+        <div id="disqus_thread"></div>
+    </div>
     <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'vincestyling'; // required: replace example with your forum shortname
+        // a unique identifier for each page where Disqus is present
+        var disqus_identifier = 'cb0ddc9e5ffb5daee2eb';
+
+        // required: replace example with your forum shortname
+        var disqus_shortname = 'vincestyling';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {
@@ -189,55 +334,37 @@ $ <span class="identifier">git</span> <span class="identifier">push</span> <span
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     </script>
+    <div id="recent-posts">
+        <p>Recent posts on <strong>vincestyling.com</strong></p>
+        <ol class="post-list">
+            
+            <li class="item" title="release your project into maven repository via Sonatype">
+                <span class="meta">2014-08-03</span>
+                <a href="/posts/2014/release-your-project-into-maven-repository-via-sonatype.html">release your project into maven repository via Sonatype</a>
+            </li>
+            
+            <li class="item" title="easily to know and switch the ellipsize mode of textview in Android">
+                <span class="meta">2013-11-27</span>
+                <a href="/posts/2013/easily-to-know-and-switch-the-ellipsize-mode-of-textview-in-android.html">easily to know and switch the ellipsize mode of textview in Android</a>
+            </li>
+            
+        </ol>
+    </div>
 </div>
-            <div class="sidebar">
-                <div class="introduce_me">
-                    <p class="soflw"><a href="http://stackoverflow.com/users/1294681/vince"><img src="http://stackoverflow.com/users/flair/1294681.png" alt="profile for vince at Stack Overflow" title="profile for vince at Stack Overflow" /></a></p>
-                    <p class="describe">Welcome to vince's styling, a blog about all things in software development by vince, He was Chinese, so please be patient because his English still poor even if he start programing over 5 years.</p>
-                </div>
-                <div class="widget">
-                    <h3 class="widget-title">Recent Posts</h3>
-                    <div class="widget-list">
-                        <ul>
-                            
-                                <li><a href="/posts/2014/release-your-project-into-maven-repository-via-sonatype.html">release your project into maven repository via Sonatype</a> - <span class="createdate">Aug 02, 2014</span></li>
-                            
-                                <li><a href="/posts/2013/easily-to-know-and-switch-the-ellipsize-mode-of-textview-in-Android.html">easily to know and switch the ellipsize mode of textview in Android</a> - <span class="createdate">Nov 26, 2013</span></li>
-                            
-                        </ul>
-                    </div>
-                </div>
-                <div class="widget">
-                    <h3 class="widget-title">Tags</h3>
-                    <div class="widget-list">
-                        <ul>
-                            
-                                <li><a href="/tags/android.html">android</a> (1)</li>
-                            
-                                <li><a href="/tags/canvas.html">canvas</a> (1)</li>
-                            
-                                <li><a href="/tags/java.html">java</a> (1)</li>
-                            
-                                <li><a href="/tags/maven.html">maven</a> (1)</li>
-                            
-                                <li><a href="/tags/sonatype.html">sonatype</a> (1)</li>
-                            
-                                <li><a href="/tags/view.html">view</a> (1)</li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="footer-container">
-        <div class="footer-widgets">
-            <div class="splitter"></div>
-            <div class="aboutus">
-                <div class="copyright">© Copyright 2013 Vince's styling</div>
-                <div class="findme">Find me on <a href="https://github.com/vince-styling">github</a></div>
-            </div>
+    <div class="footer">
+        <div class="summary">
+            <p>Copyright <i class="fa fa-copyright"></i> 2014 - <i class="fa fa-code"></i> Vince Styling</p>
+            <p><i class="fa fa-envelope"></i>&emsp;lingyunxiao@qq.com</p>
+            <p><i class="fa fa-rmb"></i>&emsp;I'm Chinese ;-)</p>
         </div>
+        <div class="site-info">
+            <p>Site hosted by <a href="https://pages.github.com/">Github Pages</a></p>
+            <p>Generated by <a href="http://khaleesi.vincestyling.com/">Khaleesi</a></p>
+            <p>Powered by <a href="https://www.ruby-lang.org/en/">Ruby</a></p>
+        </div>
+        <div style="clear:both"></div>
     </div>
+</div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 .idea
 *.idb
 out
+site
 
 # for Mac OS files
 .DS_Store
