@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="Vince Styling" name="author">
+    <meta content="a blog about all things in software engineering by vince styling." name="description">
+    <meta content="java, android, mac, git, ruby, ubuntu, css, jquery, perl, j2ee, geek, devops, software engineering, programming" name="keywords">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/site.css" media="screen" rel="stylesheet" type="text/css">
+    <title>easily to know and switch the ellipsize mode of textview in Android — vince styling</title>
+</head>
+<body>
+<div class="topper">
+    <div class="container">
+        <div class="navigation">
+            <h1 class="masthead">Vince<img src="/images/avatar.png"/>Styling</h1>
+            <div class="nav-list">
+                <a href="/">
+                    <i class="fa fa-home fa-2x"></i>
+                </a>
+                <a href="https://github.com/vince-styling" target="_blank">
+                    <i class="fa fa-github fa-2x"></i>
+                </a>
+                <a href="http://stackoverflow.com/users/1294681/vincestyling" target="_blank">
+                    <i class="fa fa-stack-overflow fa-2x"></i>
+                </a>
+                <a href="http://weibo.com/styling" target="_blank">
+                    <i class="fa fa-weibo fa-2x"></i>
+                </a>
+                <a href="/contact.html">
+                    <i class="fa fa-envelope-o fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main">
+        <div id="post-thumb">
+    <a class="title">easily to know and switch the ellipsize mode of textview in Android</a>
+    <p class="meta">
+        <i class="fa fa-pencil"></i> Posted on Wed 27 Nov 16:10 2013&emsp;
+        <i class="fa fa-edit"></i> Modify on Mon 15 Sep 16:30 2014
+    </p>
+    <div id="body">
+        <p>As you know, the Android UI TextView also allow we to set MaxLines and EllipsizeMode, but we can&#39;t find out how to know if TextView ellipsized, we want to know it because we can do something for it such as show an expand/collapse Button by the ellipsize state, that was why we wrote this widget.</p>
+
+<p>this widget looks like the TextView, offer LineSpacing, TextSize, TextColor to let you customize like you do with TextView via StyledAttributes, of course you can declare more attributes as you wanted.</p>
+
+<h2 id="how-does-it-do">How does it do?</h2>
+
+<p>It all start by the onMeasure method, when onMeasure calling, we use Paint.breakText() to calculate the input string then store every line&#39;s start&amp;end index.</p>
+<div class="highlight java"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></td><td><pre><span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">newlineIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">endCharIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="n">mLines</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;(</span><span class="n">mMaxLineCount</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span>
+
+<span class="c1">// breakText line by line and store line&#39;s indices</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">mText</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">newlineIndex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">newlineIndex</span> <span class="o">=</span> <span class="n">mText</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">NEW_LINE_STR</span><span class="o">,</span> <span class="n">newlineIndex</span><span class="o">);</span>
+        <span class="n">endCharIndex</span> <span class="o">=</span> <span class="o">(</span><span class="n">newlineIndex</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">?</span> <span class="n">newlineIndex</span> <span class="o">:</span> <span class="n">mText</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="n">charCount</span> <span class="o">=</span> <span class="n">mPaint</span><span class="o">.</span><span class="na">breakText</span><span class="o">(</span><span class="n">mText</span><span class="o">,</span> <span class="n">index</span><span class="o">,</span> <span class="n">endCharIndex</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">maxWidth</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">charCount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mLines</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">index</span><span class="o">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">charCount</span><span class="o">});</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="n">charCount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">newlineIndex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">newlineIndex</span><span class="o">++;</span>
+        <span class="n">index</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre>
+</td></tr></table></div>
+<p>after that, we got the actually line count(<code>EntireLineCount</code>) by the entire input string. according to that we can measure width simply done by Paint.measureText() method. Use <code>EntireLineCount</code> we can decide should expand or not and measure height. when measure is <strong>done</strong>, we will inform the ellipsize mode via OnMeasureDoneListener who want to know it was changed. you can toggle the mode to expand/collapse via click-handler if there&#39;s not enough space for the input string(when EntireLineCount &gt; MaxLineCount).</p>
+
+<p>In <strong>onDraw()</strong> method, we use <code>mDrawLineCount</code> to draw few lines that calculate by the <strong>measureHeight()</strong> method, if ellipsize needs, we will loop delete last line one char of the end then measure until enough to draw ellipsize text.</p>
+<div class="highlight java"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></td><td><pre><span class="n">StringBuilder</span> <span class="n">line</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="kt">float</span> <span class="n">lineDrawWidth</span> <span class="o">=</span> <span class="n">mPaint</span><span class="o">.</span><span class="na">measureText</span><span class="o">(</span><span class="n">line</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">line</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+<span class="kt">float</span> <span class="n">ellipsisWidth</span> <span class="o">=</span> <span class="n">mPaint</span><span class="o">.</span><span class="na">measureText</span><span class="o">(</span><span class="n">mStrEllipsis</span><span class="o">);</span>
+
+<span class="c1">// delete one char then measure until enough to draw ellipsize text</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">lineDrawWidth</span> <span class="o">+</span> <span class="n">ellipsisWidth</span> <span class="o">&gt;</span> <span class="n">renderWidth</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">line</span><span class="o">.</span><span class="na">deleteCharAt</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="n">lineDrawWidth</span> <span class="o">=</span> <span class="n">mPaint</span><span class="o">.</span><span class="na">measureText</span><span class="o">(</span><span class="n">line</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">line</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+<span class="o">}</span>
+<span class="n">line</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">mStrEllipsis</span><span class="o">);</span>
+</pre>
+</td></tr></table></div>
+<h2 id="a-problem-happen-during-ondraw-method">A problem happen during onDraw() method.</h2>
+
+<p>Suppose you have a large string to display, the measure height is greater than screen height if you want to display entire string, but Android just offer the <strong>Canvas</strong> match the screen dimension in the <strong>onDraw()</strong> method, that means the Canvas dimension not rely your measure result. for example, you measure dimension is 720x1400 but Canvas dimension just 720x1280, therefore the expand mode doesn&#39;t show all lines. but the dimension of View is rely the measure result, it will be displayed as 720x1240 dimension. why this situation
+occur? because we calculate the used height after draw per line, if Canvas not enough space to draw next line, we will stop them. when disable that determine, the problem solved. I didn&#39;t figure out this problem, if you know how to do, please share to me.</p>
+<div class="highlight java"><table><tr><td class="linenos"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></td><td><pre><span class="k">while</span> <span class="o">(</span><span class="n">some</span> <span class="n">condition</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// draw the current line.</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="n">line</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">line</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">canvasX</span><span class="o">,</span> <span class="n">canvasY</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+
+    <span class="n">canvasY</span> <span class="o">+=</span> <span class="o">(-</span><span class="n">mPaint</span><span class="o">.</span><span class="na">ascent</span><span class="o">()</span> <span class="o">+</span> <span class="n">mPaint</span><span class="o">.</span><span class="na">descent</span><span class="o">())</span> <span class="o">+</span> <span class="n">mLineSpacing</span><span class="o">;</span>
+
+    <span class="c1">// stop if canvas not enough space to draw next line</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">canvasY</span> <span class="o">&gt;</span> <span class="n">canvas</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</pre>
+</td></tr></table></div>
+<p>To be straightforward, a runtime screenshot attached.</p>
+
+<p><img src="/images/screenshot_of_ellipsize_textview.png" alt="EllipsizeTextView runtime screenshot" title="EllipsizeTextView runtime screenshot"/></p>
+
+<p>Notes : This widget is pretty basic, it just support left-to-right text and ellipsize text end. it handled Chinese or some languages like Chinese, you can modify the <strong>breakText</strong> logic code to implement yourself.</p>
+
+<p>The full source code for EllipsizeTextView and the sample project on <a href="https://github.com/vince-styling/ellipsize-textview-android">GitHub</a>.</p>
+
+<h3 id="helpful-posts-">Helpful Posts :</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/2160619/android-ellipsize-multiline-textview/6763689">android ellipsize multiline textview</a></li>
+<li><a href="https://code.google.com/p/android-textview-multiline-ellipse/">android-textview-multiline-ellipse</a></li>
+</ul>
+
+    </div>
+    <div id="comments">
+        <div id="disqus_thread"></div>
+    </div>
+    <script type="text/javascript">
+        // a unique identifier for each page where Disqus is present
+        var disqus_identifier = 'cc8d51653fd41c42bf79';
+
+        // required: replace example with your forum shortname
+        var disqus_shortname = 'vincestyling';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <div id="recent-posts">
+        <p>Recent posts on <strong>vincestyling.com</strong></p>
+        <ol class="post-list">
+            
+            <li class="item" title="release your project into maven repository via Sonatype">
+                <span class="meta">2014-08-03</span>
+                <a href="/posts/2014/release-your-project-into-maven-repository-via-sonatype.html">release your project into maven repository via Sonatype</a>
+            </li>
+            
+            <li class="item" title="easily to know and switch the ellipsize mode of textview in Android">
+                <span class="meta">2013-11-27</span>
+                <a href="/posts/2013/easily-to-know-and-switch-the-ellipsize-mode-of-textview-in-android.html">easily to know and switch the ellipsize mode of textview in Android</a>
+            </li>
+            
+        </ol>
+    </div>
+</div>
+    </div>
+    <div class="footer">
+        <div class="summary">
+            <p>Copyright <i class="fa fa-copyright"></i> 2014 - <i class="fa fa-code"></i> Vince Styling</p>
+            <p><i class="fa fa-envelope"></i>&emsp;lingyunxiao@qq.com</p>
+            <p><i class="fa fa-rmb"></i>&emsp;I'm Chinese ;-)</p>
+        </div>
+        <div class="site-info">
+            <p>Site hosted by <a href="https://pages.github.com/">Github Pages</a></p>
+            <p>Generated by <a href="http://khaleesi.vincestyling.com/">Khaleesi</a></p>
+            <p>Powered by <a href="https://www.ruby-lang.org/en/">Ruby</a></p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+</body>
+</html>
