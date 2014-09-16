@@ -4,13 +4,13 @@ description: Walking with me step by step to release our project into maven repo
 identifier: cb0ddc9e5ffb5daee2eb
 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 
-Maven is the popular place where to hosted our java open source projects so we can share with others more simply. Many time i've been release my project into the Maven Central Repository, that process is a bit of complication and easy to forget. Unfortunately i didn't figure out a complete walking guidance to help, thus i decide to archive myself experience in my blog.
+Maven is the popular place where to hosted our java open source projects so we can share with others more simply. Unlike to `RubyGems`, publish to Maven Central repository was a bit of difficult and complication for a newbie, even an experienced programmer. Unfortunately i didn't figure out a complete walking guidance to help, thus i decide to archive myself experience in my blog.
 
 If you did the search for this knowledge ever, you surely aware that the most people knows approach is work with Sonatype, of course i'm follow that way as well.
 
 # Guidance
 
-First, you will need to [register a JIRA account](https://issues.sonatype.org/secure/Signup!default.jspa), then configure that account on the maven settings file `~/.m2/settings.xml`, add below information in right place :
+To begin, you'll need to [register a JIRA account](https://issues.sonatype.org/secure/Signup!default.jspa), then configure that account on the maven settings file `~/.m2/settings.xml`, add below information in right place :
 
 ```xml
 <servers>
