@@ -73,6 +73,7 @@ ol, ul {
     margin: 0 auto;
 }
 
+
 .topper {
     background: #009575;
     width: 100%;
@@ -110,6 +111,7 @@ ol, ul {
     color: #000000;
 }
 
+
 .main {
     padding-top: 30px;
     padding-bottom: 2px;
@@ -124,8 +126,23 @@ ol, ul {
     border-bottom: 1px solid #e5ecf4;
 }
 
+.main .btn {
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 2px 4px;
+    font-size: 14px;
+    border-radius: 4px;
+}
 
-.main #posts .post {
+.main code {
+    padding: 2px;
+    color: #d14;
+    background-color: #f7f7f9;
+    border-radius: 3px;
+}
+
+.main #posts .post, .main #projects .project {
     margin-bottom: 20px;
 }
 
@@ -133,27 +150,20 @@ ol, ul {
     margin-bottom: 0;
 }
 
-.main #posts .post p {
+.main p {
     text-align: justify;
-    line-height: 30px;
+    line-height: 32px;
     font-size: 1.1em;
 }
 
-.main #posts .post p.meta {
+.main .meta {
     font-style: italic;
+    font-size: 14px;
     color: #666666;
 }
 
-
-.main #post-thumb p.title {
+.main #post-thumb .title {
     font-size: 2.8em;
-}
-
-.main #post-thumb p.meta {
-    font-style: italic;
-    font-size: 16px;
-    color: #666666;
-    padding-top: 5px;
 }
 
 .main #post-thumb #body {
@@ -162,16 +172,6 @@ ol, ul {
 
 .main #post-thumb #body p {
     margin-bottom: 12px;
-    line-height: 32px;
-    text-align: justify;
-    font-size: 1.1em;
-}
-
-.main #post-thumb #body code {
-    padding: 2px;
-    color: #d14;
-    background-color: #f7f7f9;
-    border-radius: 3px;
 }
 
 .main #post-thumb #body h1 {

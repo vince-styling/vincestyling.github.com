@@ -6,17 +6,30 @@ decorator: basic
     <p><em>Welcome to vincestyling.com and thanks for checking out the frontpage.</em> <i class="fa fa-angellist"></i></p>
     <p>
         This is my personal tech blog where I record and share all things in my software development and other activities.
-        You can <a href="/about.html">read more about me</a> and my blog posts, checkout my <a href="#projects">open source projects</a>.
+        You can <a href="/about.html">read more about me</a> and my <a href="#posts">blog posts</a>, checkout my <a href="#projects">open source projects</a>.
     </p>
 </div>
 <div id="posts">
     #foreach ($post : $posts desc)
         <div class="post" title="${post:title}">
             <h2 class="title">
+                <span class="btn">Post</span>
                 <a href="${post:link}">${post:title}</a>
             </h2>
             <p class="meta">${post:createtime}</p>
             <p class="summary">${post:description}</p>
+        </div>
+    #end
+</div>
+<div id="projects">
+    #foreach ($project : $projects)
+        <div class="project" title="${project:name}">
+            <h2 class="name">
+                <span class="btn">Project</span>
+                <a href="${project:homepage}">${project:name}</a>
+                <span class="meta">Since ${project:since}</span>
+            </h2>
+            ${project:content}
         </div>
     #end
 </div>

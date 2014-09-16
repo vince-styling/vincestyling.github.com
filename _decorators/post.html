@@ -1,15 +1,11 @@
 decorator: basic
 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 <div id="post-thumb">
-    <p class="title"><a>${variable:title}</a></p>
+    <a class="title">${variable:title}</a>
     <p class="meta">
-        <i class="fa fa-pencil"></i>
-        Posted on
-        <span class="date">${variable:createtime}</span>
-        &emsp;
-        <i class="fa fa-edit"></i>
-        Modify on
-        <span class="date">${variable:modifytime}</span></p>
+        <i class="fa fa-pencil"></i> Posted on ${variable:createtime}&emsp;
+        <i class="fa fa-edit"></i> Modify on ${variable:modifytime}
+    </p>
     <div id="body">
         ${decorator:content}
     </div>
