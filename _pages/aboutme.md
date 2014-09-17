@@ -1,0 +1,7 @@
+Hi, I'm Vince Styling, a twenty-six year old technology developer. I live in GuangZhou of China when I reached manhood. 
+
+I acted as J2EE engineer in my job about four years ever, now I developing Android application. `Java` is my primary programming language but I also picked up others when I must, e.g. ruby, perl, javascript. I adore to develop with a definite purpose, I believe an expectable future can always motivate us to work.
+
+I'm an enthusiast of English tech community, willing to share all things of my technology life. And actively run my [stackoverflow](http://stackoverflow.com/users/1294681/vincestyling) and [github](https://github.com/vince-styling) to be more valuable, also this personal blog.
+
+I started full-time at programming since I was eighteen, kinda late for this journey. Although I practiced my programming skill for 8 years, it still never get easy because my English was poor from first. So I spent most of my time to mitigate this imperfection. Now my ability of speaking English was miles better than the time I starting for <i class="fa fa-smile-o"></i>. Certainly there are rooms called for fill up, that's an exciting but long march for me, I won't give up about this.

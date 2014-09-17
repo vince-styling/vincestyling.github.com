@@ -577,3 +577,13 @@ ol, ul {
 .main #post-thumb #body .highlight .w {
     color: #bbbbbb;
 }
+
+.main #aboutme .avatar {
+    border-radius: 3px;
+    margin-left: 10px;
+    height: 176px;
+}
+
+.main #aboutme p {
+    margin-bottom: 12px;
+}
