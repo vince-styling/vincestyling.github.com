@@ -11,7 +11,7 @@ decorator: basic
 </div>
 <div id="posts">
     #foreach ($post : $posts desc)
-        <div class="post" title="${post:title}">
+        <div class="post ${post:additional_css}" title="${post:title}">
             <h2 class="title">
                 <span class="btn">Post</span>
                 <a href="${post:link}">${post:title}</a>

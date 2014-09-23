@@ -6,7 +6,7 @@ decorator: basic
         <i class="fa fa-pencil"></i> Posted on ${variable:createtime}&emsp;
         <i class="fa fa-edit"></i> Modify on ${variable:modifytime}
     </p>
-    <div id="body">
+    <div id="body" class="${variable:additional_css}">
         ${decorator:content}
     </div>
     <div id="comments">
@@ -30,10 +30,10 @@ decorator: basic
         <p>Recent posts on <strong>vincestyling.com</strong></p>
         <ol class="post-list">
             #foreach ($post : $posts desc 5)
-            <li class="item" title="${post:title}">
-                <span class="meta">${post:createdate}</span>
-                <a href="${post:link}">${post:title}</a>
-            </li>
+                <li class="item" title="${post:title}">
+                    <span class="meta">${post:createdate}</span>
+                    <a href="${post:link}">${post:title}</a>
+                </li>
             #end
         </ol>
     </div>
