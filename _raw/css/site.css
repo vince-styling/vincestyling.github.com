@@ -41,8 +41,12 @@ body {
 }
 
 body, code, h1, h2, h3, h4, h5, h6 {
-    font-family: "Titillium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Titillium", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, Arial, sans-serif;
+}
+
+html {
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -65,6 +69,37 @@ img {
 
 ol, ul {
     list-style: none;
+}
+
+.main p {
+    text-align: justify;
+}
+
+.main p, .main li, .main table td {
+    line-height: 32px;
+    font-size: 1.1em;
+}
+
+.main p, .main li {
+    margin-bottom: 5px;
+}
+
+.main table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: gray;
+}
+
+.main table th,
+.main table td {
+    border: 1px solid #ddd;
+    padding: 6px 13px;
+    vertical-align: middle;
+}
+
+.main table th {
+    font-weight: bold;
 }
 
 .container {
@@ -148,12 +183,20 @@ ol, ul {
 
 .main #posts .post h2.title {
     margin-bottom: 0;
+    font-size: 24px;
 }
 
-.main p {
-    text-align: justify;
-    line-height: 32px;
-    font-size: 1.1em;
+.main #posts .chinese h2.title {
+    margin-bottom: 0;
+    font-size: 20px;
+}
+
+.main #posts .post .summary {
+    font-size: 17px;
+}
+
+.main #posts .chinese .summary {
+    font-size: 15px;
 }
 
 .main .meta {
@@ -163,7 +206,7 @@ ol, ul {
 }
 
 .main #post-thumb .title {
-    font-size: 2.8em;
+    font-size: 2.7em;
 }
 
 .main #post-thumb #body {
@@ -175,8 +218,8 @@ ol, ul {
 }
 
 .main #post-thumb #body h1 {
-    padding-bottom: 6px;
     border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
     margin-bottom: 12px;
 }
 
@@ -195,45 +238,28 @@ ol, ul {
 
 .main #post-thumb #body ol, .main #post-thumb #body ul {
     margin-bottom: 12px;
-    line-height: 32px;
-    font-size: 1.1em;
-}
-
-.main #post-thumb #body li {
-    line-height: 32px;
-    font-size: 1.1em;
 }
 
 .main #post-thumb #body table {
-    width: 100%;
     overflow: auto;
     display: block;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border-color: gray;
     margin-bottom: 20px;
 }
 
-.main #post-thumb #body table th,
-.main #post-thumb #body table td {
-    border: 1px solid #ddd;
-    padding: 6px 13px;
-    vertical-align: middle;
+.main #post-thumb .chinese p {
+    font-size: 16px;
 }
 
-.main #post-thumb #body table td {
-    font-size: 15px;
-    line-height: 26px;
+.main #post-thumb .chinese li {
+    font-size: 16px;
 }
 
-.main #post-thumb #body table th {
-    font-weight: bold;
+.main #post-thumb .chinese h1 {
+    font-size: 22px;
 }
 
-.main #post-thumb #body blockquote {
-    border-left: 5px solid #EEEEEE;
-    margin: 0 0 5px;
-    padding: 5px 0 0 15px;
+.main #post-thumb .chinese h2 {
+    font-size: 20px;
 }
 
 
@@ -294,13 +320,15 @@ ol, ul {
     background-color: #f9f9f9;
     color: #333333;
     margin-bottom: 10px;
+    border-radius: 2px;
     overflow: auto;
     width: 100%;
 }
 
 .main #post-thumb #body .highlight pre {
-    font-family: "Source Code Pro", Monaco, Consolas, Courier, monospace;
+    font-family: "Source Code Pro", Monaco, Consolas, Courier, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, monospace;
     -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
     white-space: pre;
     font-weight: 400;
     font-size: 14px;
