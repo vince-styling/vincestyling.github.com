@@ -71,7 +71,7 @@ ol, ul {
     list-style: none;
 }
 
-.main p {
+.main p, .main table td {
     text-align: justify;
 }
 
@@ -161,6 +161,10 @@ ol, ul {
     border-bottom: 1px solid #e5ecf4;
 }
 
+.main .welcome p {
+    font-size: 16px;
+}
+
 .main .btn {
     color: #333;
     background-color: #fff;
@@ -238,6 +242,7 @@ ol, ul {
 
 .main #post-thumb #body ol, .main #post-thumb #body ul {
     margin-bottom: 12px;
+    list-style: disc inside;
 }
 
 .main #post-thumb #body table {
@@ -260,6 +265,10 @@ ol, ul {
 
 .main #post-thumb .chinese h2 {
     font-size: 20px;
+}
+
+.main #post-thumb .intellij_idea img {
+    border-radius: 2px;
 }
 
 

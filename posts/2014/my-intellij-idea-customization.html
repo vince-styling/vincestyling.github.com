@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="Vince Styling" name="author">
+    <meta content="a blog about all things in software engineering by vince styling." name="description">
+    <meta content="java, android, mac, git, ruby, ubuntu, css, jquery, perl, j2ee, geek, devops, software engineering, programming" name="keywords">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/site.css" media="screen" rel="stylesheet" type="text/css">
+    <title>My IntelliJ IDEA customization — vince styling</title>
+</head>
+<body>
+<div class="topper">
+    <div class="container">
+        <div class="navigation">
+            <h1 class="masthead">Vince<img src="/images/avatar.png"/>Styling</h1>
+            <div class="nav-list">
+                <a href="/">
+                    <i class="fa fa-home fa-2x"></i>
+                </a>
+                <a href="https://github.com/vince-styling" target="_blank">
+                    <i class="fa fa-github fa-2x"></i>
+                </a>
+                <a href="http://stackoverflow.com/users/1294681/vincestyling" target="_blank">
+                    <i class="fa fa-stack-overflow fa-2x"></i>
+                </a>
+                <a href="http://weibo.com/styling" target="_blank">
+                    <i class="fa fa-weibo fa-2x"></i>
+                </a>
+                <a href="/about.html">
+                    <i class="fa fa-envelope-o fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main">
+        <div id="post-thumb">
+    <a class="title">My IntelliJ IDEA customization</a>
+    <p class="meta">
+        <i class="fa fa-pencil"></i> Posted on Sun 28 Sep 21:51 2014&emsp;
+        <i class="fa fa-edit"></i> Modify on Sun 28 Sep 21:51 2014
+    </p>
+    <div id="body" class="intellij_idea">
+        <p>IntelliJ IDEA is a full-featured IDE with a high level of usability and outstanding advanced code editing and refactoring support. I turned to that since 2012, now I&#39;m a big fans of <code>JetBrains</code> series. I&#39;m enthusiasm for customizing my IDE. As some records for my development life. I wish to show here about all my settings.</p>
+
+<h1 id="general-settings">General Settings</h1>
+
+<p>As the most popular way, I applied the <code>Darcula</code> theme as well. I got used to the <code>Ubuntu</code> font when I developing on Ubuntu platform, thus I followed my habit.</p>
+
+<p><img src="/images/intellijidea/theme_font_setting.png" alt=""/></p>
+
+<p>Because I&#39;m work in China, so I must make the IDE supports Chinese without problems. I prefer <code>Microsoft YaHei</code> and <code>Consolas</code>, so I finally found a font which mix them into one.</p>
+
+<p><img src="/images/intellijidea/editor_font.png" alt=""/></p>
+
+<h1 id="keymap">Keymap</h1>
+
+<p>Start from <code>Eclipse</code>, I enjoy to use shortcut key to speed up my developing. Now I absolutely broke away the Mouse in my job, only the Keyboard. The reason of why I can do that is I&#39;ve been changed plenty key settings to fulfill my desires with the Keyboard rather than the Cursor. Eventually I almost own all the frequently-used keys.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Shortcut Key</th>
+<th>Understanding</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">Alt+Shift+Z</td>
+<td><code>Code &gt; Generate...</code> : Invoking the Generate menu. This quick menu is helpful, I often use it to generate Getter and Setter, Override parent&#39;s methods.<br><img src="/images/intellijidea/code_generate.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+F</td>
+<td><code>Code &gt; Reformat Code...</code> : Reformat the caret pointing to file code.<br><img src="/images/intellijidea/reformat_code.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+O</td>
+<td><code>Code &gt; Optimize Imports...</code> : An unnecessary imports would never be a good thing. Especially for a person who pursue of perfect like me. Always keep your imports optimized and rearrange those statements.<br>e.g. before is :<br><img src="/images/intellijidea/optimize_imports_before.png" alt=""/><br>after optimize :<br><img src="/images/intellijidea/optimize_imports_after.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Up/Down</td>
+<td><code>Code &gt; Move Statement Up/Down</code> : Swapping the caret laying on code block by block. e.g. swap of <strong>while</strong> block and <strong>if</strong> block, before is :<br><img src="/images/intellijidea/move_statement_before.png" alt=""/><br>After press <code>Alt+Up</code> :<br><img src="/images/intellijidea/move_statement_after.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+.</td>
+<td><code>Code &gt; Folding &gt; Fold Selection/Remove region</code> : Expand/collapse the code block. Can be beneficial while checking a big file.<br><img src="/images/intellijidea/fold_selection.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+Down</td>
+<td><code>Edit &gt; Duplicate Lines</code> : Duplicating the caret laying on line or selecting lines at below. e.g. duplicate an <strong>if</strong> block, before is :<br><img src="/images/intellijidea/duplicate_lines_before.png" alt=""/><br>After performed :<br><img src="/images/intellijidea/duplicate_lines_after.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+U</td>
+<td><code>Edit &gt; Toggle Case</code> : Toggle between uppercase and lowercase for the caret laying on code block or selecting text.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+C</td>
+<td><code>Edit &gt; Copy Paths</code> : Copy the caret pointing to resource&#39;s absolute path to the Clipboard.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+V</td>
+<td><code>Edit &gt; Paste from History...</code> : Display a dialog listed your recent copy string, select one to synchronize to the Clipboard and paste at caret.<br><img src="/images/intellijidea/paste_from_history.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+,(Comma)</td>
+<td><code>Edit &gt; Find Previous</code> : Invoking the finding text view in editor, or navigating the caret to the previous match result after search.<br><img src="/images/intellijidea/editor_find_previous.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+.(Period)</td>
+<td><code>Edit &gt; Find Next</code> : Invoking the finding text view in editor, or navigating the caret to the next match result after search.<br><img src="/images/intellijidea/editor_find_next.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+Left/Right</td>
+<td><code>Edit &gt; Move caret to code block start/end with selection</code> : Forward or Backward to select code block.<br><img src="/images/intellijidea/block_selection.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+L</td>
+<td><code>Edit &gt; Select Word at Caret</code> : Select the independent word at caret.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+M</td>
+<td><code>Edit &gt; Scroll to Center</code> : Scroll caret line to center of editor.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+R</td>
+<td><code>Navigate &gt; File...</code> : Navigating to a file in project by name.<br><img src="/images/intellijidea/navigate_file.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+O</td>
+<td><code>Navigate &gt; File Structure</code> : Show us that the IDE recognized file structure.<br><img src="/images/intellijidea/file_structure.png" alt=""/><img src="/images/intellijidea/file_structure_1.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+K</td>
+<td><code>Navigate &gt; Implementation(s)</code> : Navigating to the caret laying on method&#39;s implementation, display a choose dialog if more.<br><img src="/images/intellijidea/implementations.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">F3</td>
+<td><code>Navigate &gt; Declaration</code> : Just navigating to the place where the object declaring. Maybe an Interface method means take not valueable code. So I use <code>Ctrl+K</code> all the time.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+J/K</td>
+<td><code>Navigate &gt; Previous/Next Highlighted Error</code> : Navigating the caret to previous or next reported error or warning.<br><img src="/images/intellijidea/highlighted_error.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+H</td>
+<td><code>Navigate &gt; Select In...</code> : Select a Target to open the caret laying on file.<br><img src="/images/intellijidea/select_in_target.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Q</td>
+<td><code>Navigate &gt; Last Edit Location</code> : Navigating the caret to the last edit location.</td>
+</tr>
+<tr>
+<td style="text-align: center">F2</td>
+<td><code>Refactor &gt; Rename...</code> Renaming correspond.<br><img src="/images/intellijidea/refactor_rename.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+V</td>
+<td><code>Refactor &gt; Move...</code> : In Project explorer, move file to another place.<br><img src="/images/intellijidea/move_file.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Enter</td>
+<td><code>Other &gt; Show Intention Actions</code> : Showing the caret laying on object&#39;s intentions. Sometime are error solutions :<br><img src="/images/intellijidea/show_intention_actions.png" alt=""/>Sometime are optimize advices :<br><img src="/images/intellijidea/show_intention_actions_1.png" alt=""/>I&#39;m used to pay attention for these tips because I trust IDEA&#39;s wisdom for code, they&#39;re capable to make my work better.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+N</td>
+<td><code>Other &gt; Show Context Menu</code> : Showing the caret pointing to resource&#39;s menu. Equivalent to use the right mouse button invoke&#39;s menu.<br><img src="/images/intellijidea/show_context_menu.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+A</td>
+<td><code>Help &gt; Find Actions</code> : Typing the action name to perform, you can invoke any action if you have remembered his name.<br><img src="/images/intellijidea/find_actions.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+J</td>
+<td><code>Code Completion &gt; Basic</code> : Default key is <code>Ctrl+Space</code>. But it&#39;s conflict with System&#39;s switch input method key. This customization was inherited since I use Visual Studio 2008 to study <code>.Net</code>. It&#39;s within easy reach while we typing with two hands.<br><img src="/images/intellijidea/code_completion_basic.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Shift+Alt+Space</td>
+<td><code>Code Completion &gt; SmartType</code> : Relative to the <strong>Basic</strong>, this completion will estimate the expression which you just write or the caret laying on, finally supply us some smart suggests.<br><img src="/images/intellijidea/code_completion_smartype.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+X</td>
+<td><code>Run &gt; Run</code> : Running the configuration scheme which the last time has been ran.</td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+F10</td>
+<td><code>Run &gt; Run...</code> : Choosing a configuration scheme to run.<br><img src="/images/intellijidea/run_run.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+F9</td>
+<td><code>Run &gt; Debug...</code> : Choosing a configuration scheme to debug.<br><img src="/images/intellijidea/run_debug.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+B</td>
+<td><code>Run &gt; Toggle Line Breakpoint...</code> Handy way to switch the Breakpoint of lines.<br><img src="/images/intellijidea/toggle_line_breakpoint.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+F8</td>
+<td><code>Run &gt; View Breakpoints...</code> : Managing all Breakpoints in project.<br><img src="/images/intellijidea/managing_breakpoints.png" alt=""/>Or easily checking the caret laying on Breakpoint&#39;s detail :<br><img src="/images/intellijidea/managing_breakpoints_1.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+Y</td>
+<td><code>View &gt; Compare with Clipboard</code> : Compare the caret laying on file or selecting text with Clipboard.<br><img src="/images/intellijidea/compare_with_clipboard.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+J</td>
+<td><code>View &gt; Parameter Info</code> : Checking the method&#39;s parameter info.<br><img src="/images/intellijidea/parameter_info.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+Shift+U</td>
+<td><code>View &gt; Quick Documentation</code> : Invoking the object(class, method, argument, parameter)&#39;s documentation which the caret standing on.<br><img src="/images/intellijidea/quick_documentation.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+E</td>
+<td><code>View &gt; Recent Files</code> : Show recent files operations.<br><img src="/images/intellijidea/recent_files.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+I</td>
+<td><code>View &gt; Quick Definition</code> : View the caret laying on object&#39;s definition.<br><img src="/images/intellijidea/quick_definition.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+1</td>
+<td><code>Tool Windows &gt; Project</code> : Open the Project window.<br><img src="/images/intellijidea/project_window.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+2</td>
+<td><code>Tool Windows &gt; Android</code> : Open the Android DDMS window.<br><img src="/images/intellijidea/android_window.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Alt+3</td>
+<td><code>Tool Windows &gt; Changes</code> : Open the Changes(Local/Log) window.<br><img src="/images/intellijidea/changes_window.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+D</td>
+<td><code>Window &gt; Hide All Tool Windows</code> : Hide all tool windows, maximize the editor.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+W</td>
+<td><code>Window &gt; Close Tab</code> : Close a Tab in editor or hide a window in Tools.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+W</td>
+<td><code>Window &gt; Close All Tab</code> : Close All Tab in editor.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+N/M</td>
+<td><code>Window &gt; Select Previous/Next Tab</code> : Switch the tabs circularly.</td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+Y</td>
+<td><code>File &gt; New...</code> : Showing the new file dialog. Once perform in the editor, means creating a file in the same directory for the editing file.<br><img src="/images/intellijidea/file_new.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">psvm+Tab</td>
+<td><code>Live Templates</code> : Input &quot;psvm&quot; then press <code>Tab</code>, IDEA will generate the java main method, look at the Live Templates for more patterns.<br><img src="/images/intellijidea/live_templates.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+Z</td>
+<td><code>VCS &gt; Show History</code> : Show the caret laying on object&#39;s history.<br><img src="/images/intellijidea/vcs_history.png" alt=""/></td>
+</tr>
+<tr>
+<td style="text-align: center">Ctrl+Shift+X</td>
+<td><code>VCS &gt; Compare with the Same Repository Version</code><br><img src="/images/intellijidea/vcs_compare_same_version.png" alt=""/></td>
+</tr>
+</tbody></table>
+
+<h1 id="system-setting">System Setting</h1>
+
+<p>I switch from Windows-style keyboard to Mac OS X. I already got used to the <code>Control</code> key always separated by another key(normally is Windows key). So I did a small remap for my Mac keyboard, swapped the <code>Option(Alt)</code> key and the <code>Command</code> key.</p>
+
+<p><img src="/images/intellijidea/swap_option_and_command_key.png" alt=""/></p>
+
+<h1 id="additional">Additional</h1>
+
+<p>In the age of <strong>Eclipse</strong>, we can only compressing the workspace&#39;s <code>.metadata</code> folder then keep that package to backup our settings. It&#39;s usually being large file and harder to sharing to others.</p>
+
+<p>Thanks for JetBrains, enable us to holding our entire settings through a small size file. <a href="/intellij_idea_settings.jar">Here</a>&#39;s all settings of mine that exported from my IDEA. Just import into your IDE if you wants to share my customization.</p>
+
+    </div>
+    <div id="comments">
+        <div id="disqus_thread"></div>
+    </div>
+    <script type="text/javascript">
+        // a unique identifier for each page where Disqus is present
+        var disqus_identifier = 'd7d18c169f4a051fdc2f';
+
+        // required: replace example with your forum shortname
+        var disqus_shortname = 'vincestyling';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <div id="recent-posts">
+        <p>Recent posts on <strong>vincestyling.com</strong></p>
+        <ol class="post-list">
+            
+                <li class="item" title="My IntelliJ IDEA customization">
+                    <span class="meta">2014-09-28</span>
+                    <a href="/posts/2014/my-intellij-idea-customization.html">My IntelliJ IDEA customization</a>
+                </li>
+            
+                <li class="item" title="我是如何阅读开源项目的源代码的">
+                    <span class="meta">2014-09-23</span>
+                    <a href="/posts/2014/how-am-i-read-open-source-projects-code.html">我是如何阅读开源项目的源代码的</a>
+                </li>
+            
+                <li class="item" title="release your project into maven repository via Sonatype">
+                    <span class="meta">2014-08-03</span>
+                    <a href="/posts/2014/release-your-project-into-maven-repository-via-sonatype.html">release your project into maven repository via Sonatype</a>
+                </li>
+            
+                <li class="item" title="easily to know and switch the ellipsize mode of textview in Android">
+                    <span class="meta">2013-11-27</span>
+                    <a href="/posts/2013/easily-to-know-and-switch-the-ellipsize-mode-of-textview-in-android.html">easily to know and switch the ellipsize mode of textview in Android</a>
+                </li>
+            
+        </ol>
+    </div>
+</div>
+    </div>
+    <div class="footer">
+        <div class="summary">
+            <p>Copyright <i class="fa fa-copyright"></i> 2014 - <i class="fa fa-code"></i> Vince Styling</p>
+            <p><i class="fa fa-envelope"></i>&emsp;lingyunxiao@qq.com</p>
+            <p><i class="fa fa-rmb"></i>&emsp;I'm Chinese ;-)</p>
+        </div>
+        <div class="site-info">
+            <p>Site hosted by <a href="https://pages.github.com/">Github Pages</a></p>
+            <p>Generated by <a href="http://khaleesi.vincestyling.com/">Khaleesi</a></p>
+            <p>Powered by <a href="https://www.ruby-lang.org/en/">Ruby</a></p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+</body>
+</html>
