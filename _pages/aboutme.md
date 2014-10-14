@@ -1,4 +1,4 @@
-Hi, I'm Vince Styling, a twenty-six year old technology developer. I live in GuangZhou of China when I reached manhood. 
+Hi, I'm Vince Styling, a twenty-six years old technology developer. I live in GuangZhou of China when I reached manhood. 
 
 I acted as J2EE engineer in my job about four years ever, now I developing Android application. `Java` is my primary programming language but I also picked up others when I must, e.g. ruby, perl, javascript. I adore to develop with a definite purpose, I believe an expectable future can always motivate us to work.
 

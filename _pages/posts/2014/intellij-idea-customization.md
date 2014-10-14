@@ -2,7 +2,6 @@ title: My IntelliJ IDEA customization
 decorator: post
 identifier: d7d18c169f4a051fdc2f
 description: IntelliJ IDEA is a full-featured IDE. I turned to that since 2012, now I'm a big fans of JetBrains series. This post would share all my customization about IDEA.
-additional_css: intellij_idea
 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 
 IntelliJ IDEA is a full-featured IDE with a high level of usability and outstanding advanced code editing and refactoring support. I turned to that since 2012, now I'm a big fans of `JetBrains` series. I'm enthusiasm for customizing my IDE. As some records for my development life. I wish to show here about all my settings.
