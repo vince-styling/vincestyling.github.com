@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="Vince Styling" name="author">
+    <meta content="a blog about all things in software engineering by vince styling." name="description">
+    <meta content="java, android, mac, git, ruby, ubuntu, css, jquery, perl, j2ee, geek, devops, software engineering, programming" name="keywords">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/site.css" media="screen" rel="stylesheet" type="text/css">
+    <title>How to make the ListView's selector influence multiple rows in Android — vince styling</title>
+</head>
+<body>
+<div class="topper">
+    <div class="container">
+        <div class="navigation">
+            <h1 class="masthead">Vince<img src="/images/avatar.png"/>Styling</h1>
+            <div class="nav-list">
+                <a href="/">
+                    <i class="fa fa-home fa-2x"></i>
+                </a>
+                <a href="https://github.com/vince-styling" target="_blank">
+                    <i class="fa fa-github fa-2x"></i>
+                </a>
+                <a href="http://stackoverflow.com/users/1294681/vincestyling" target="_blank">
+                    <i class="fa fa-stack-overflow fa-2x"></i>
+                </a>
+                <a href="http://weibo.com/styling" target="_blank">
+                    <i class="fa fa-weibo fa-2x"></i>
+                </a>
+                <a href="/about.html">
+                    <i class="fa fa-envelope-o fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main">
+        <div id="post-thumb">
+    <a class="title">How to make the ListView's selector influence multiple rows in Android</a>
+    <p class="meta">
+        <i class="fa fa-pencil"></i> Posted on Tue 14 Oct 17:45 2014&emsp;
+        <i class="fa fa-edit"></i> Modify on Tue 14 Oct 17:45 2014
+    </p>
+    <div id="body" class="${variable:additional_css}">
+        <p><img src="/images/listview_selector_before.png" alt=""/></p>
+
+<p>Above image is a screenshot which display the ListView&#39;s row changed since it has been pressed. As you saw the ListView&#39;s selector made the row&#39;s background color change when we putting down finger on. It looks the highlight color infiltrating into the bottom curved divider. But once you learn deeper about the ListView&#39;s mechanism, you&#39;ll understand that we can hardly to manipulate the ListView&#39;s dividers drawing with current resources in our hands. It is able to work because I have every row to carrying his divider rather than let ListView to draw it. Just as following structure.</p>
+<div class="highlight xml"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></td><td><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;LinearLayout</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;TextView</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/txvBookName&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;TextView</span>
+            <span class="na">style=</span><span class="s">&quot;@style/finder_book_list_item_capacity&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;TextView</span>
+            <span class="na">style=</span><span class="s">&quot;@style/finder_book_list_item_tips&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;/LinearLayout&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">style=</span><span class="s">&quot;@style/finder_book_list_item_summary&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;FrameLayout</span>
+        <span class="na">android:layout_marginTop=</span><span class="s">&quot;10dp&quot;</span>
+        <span class="na">style=</span><span class="s">&quot;@style/finder_book_list_item_divider&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre>
+</td></tr></table></div>
+<p>Right now, to making that effect perfectly, we must concurrently to infiltrating the gaps which you can see at the beginning&#39;s screenshot while we change the row&#39;s background color. That sounds tempting if we can accomplish this.</p>
+
+<p>But those gaps was belong and maintained by the row which at motion hovering row&#39;s above. The ListView&#39;s <code>Selector</code> only a Drawable therefore it doesn&#39;t have power to modify any views. So two questions await to be resolved.</p>
+
+<ul>
+<li><code>First</code> : We must figure out where the Selector to perform changing the row&#39;s background when user pressing it, then attempt to intercept that behavior to do something else.</li>
+<li><code>Second</code> : We must asking ListView to tell us what position is the finger laying on, then taking the particular child view from that ListView to change its divider.</li>
+</ul>
+
+<p>For the first question, I found Selector actually a <code>StateListDrawable</code>, and I&#39;m lucky to be aware of that we have a method named <code>onStateChange()</code> be able to intercepting. Which make us always keep informed about the state change.</p>
+<div class="highlight java"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></td><td><pre><span class="n">StateListDrawable</span> <span class="n">selector</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">StateListDrawable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">onStateChange</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">stateSet</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">onStateChange</span><span class="o">(</span><span class="n">stateSet</span><span class="o">);</span>
+
+        <span class="c1">// do the second job here about change the above item.</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+<span class="n">selector</span><span class="o">.</span><span class="na">addState</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">state_pressed</span><span class="o">},</span>
+    <span class="n">getResources</span><span class="o">().</span><span class="na">getDrawable</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">finder_booklist_bg_pressed</span><span class="o">));</span>
+<span class="n">mListView</span><span class="o">.</span><span class="na">setSelector</span><span class="o">(</span><span class="n">selector</span><span class="o">);</span>
+</pre>
+</td></tr></table></div>
+<p>About the second&#39;s, I tracing into the ListView&#39;s source code. Finally discovered a method named <a href="http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.0.3_r1/android/widget/ListView.java#ListView.findMotionRow%28int%29">findMotionRow</a> which can calculate the hovering row index. But it&#39;s buried deep inside the ListView, we can&#39;t invoke that obviously just like the rest of visible methods does. Thus I fetched its source code to putting my customize ListView which extended from original ListView to recover that method&#39;s benefit.</p>
+<div class="highlight java"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</pre></td><td><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyListView</span> <span class="kd">extends</span> <span class="n">ListView</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">mMotionPosition</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getMotionPosition</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mMotionPosition</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onInterceptTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getAction</span><span class="o">()</span> <span class="o">==</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mMotionPosition</span> <span class="o">=</span> <span class="n">findMotionRow</span><span class="o">(</span><span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onInterceptTouchEvent</span><span class="o">(</span><span class="n">ev</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Find which position is motion on.</span>
+<span class="cm">     * Note : this method copy into public from 4.0 source code.</span>
+<span class="cm">     * @param y Y coordinate of the motion event.</span>
+<span class="cm">     * @return Selected index (starting at 0) of the data item.</span>
+<span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">findMotionRow</span><span class="o">(</span><span class="kt">float</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">childCount</span> <span class="o">=</span> <span class="n">getChildCount</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">childCount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">isStackFromBottom</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">childCount</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">View</span> <span class="n">v</span> <span class="o">=</span> <span class="n">getChildAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">v</span><span class="o">.</span><span class="na">getBottom</span><span class="o">())</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="nf">getFirstVisiblePosition</span><span class="o">()</span> <span class="o">+</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">childCount</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+                    <span class="n">View</span> <span class="n">v</span> <span class="o">=</span> <span class="n">getChildAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">v</span><span class="o">.</span><span class="na">getTop</span><span class="o">())</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="nf">getFirstVisiblePosition</span><span class="o">()</span> <span class="o">+</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">INVALID_POSITION</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre>
+</td></tr></table></div>
+<p>Once we knew the position which finger hovering, we&#39;ll be capable of taking the above row then change its divider concurrently.</p>
+<div class="highlight java"><table><tr><td class="linenos"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></td><td><pre><span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">onStateChange</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">stateSet</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">onStateChange</span><span class="o">(</span><span class="n">stateSet</span><span class="o">);</span>
+
+    <span class="kt">int</span> <span class="n">aboveChildIndex</span> <span class="o">=</span> <span class="n">mMotionPosition</span> <span class="o">-</span> <span class="n">getFirstVisiblePosition</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(--</span><span class="n">aboveChildIndex</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">stateSet</span><span class="o">,</span> <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">state_pressed</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mIsPressed</span><span class="o">)</span> <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+
+        <span class="n">View</span> <span class="n">child</span> <span class="o">=</span> <span class="n">getChildAt</span><span class="o">(</span><span class="n">aboveChildIndex</span><span class="o">);</span>
+        <span class="n">child</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">lotDivider</span><span class="o">).</span><span class="na">setBackgroundResource</span><span class="o">(</span>
+            <span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">finder_booklist_divider_pressed_layer</span><span class="o">);</span>
+        <span class="n">mIsPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">mIsPressed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">View</span> <span class="n">child</span> <span class="o">=</span> <span class="n">getChildAt</span><span class="o">(</span><span class="n">aboveChildIndex</span><span class="o">);</span>
+        <span class="n">child</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">lotDivider</span><span class="o">).</span><span class="na">setBackgroundResource</span><span class="o">(</span>
+            <span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">finder_booklist_divider_layer</span><span class="o">);</span>
+        <span class="n">mIsPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</pre>
+</td></tr></table></div>
+<p>Eventually, with these advantages, we can accomplish our tempting purpose about making the selector influence multiple rows.</p>
+
+<p><img src="/images/listview_selector_after.png" alt=""/></p>
+
+<p>I built a project for this post to help understanding, also play my effort a greater value. The core logical code was concentrated at this <a href="https://github.com/vince-styling/multiple-rows-selector-android/blob/master/src/com/vincestyling/multiple_rows_selector/FinderListView.java">class</a>.</p>
+
+<p>And <a href="http://stackoverflow.com/questions/25217975/issue-in-getting-child-row-of-the-listview-on-swipe/25227217#25227217">here</a> is my answer for a Stackoverflow question which share the same desired with me.</p>
+
+    </div>
+    <div id="comments">
+        <div id="disqus_thread"></div>
+    </div>
+    <script type="text/javascript">
+        // a unique identifier for each page where Disqus is present
+        var disqus_identifier = '41a3d0cfa28a2b13679b';
+
+        // required: replace example with your forum shortname
+        var disqus_shortname = 'vincestyling';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <div id="recent-posts">
+        <p>Recent posts on <strong>vincestyling.com</strong></p>
+        <ol class="post-list">
+            
+                <li class="item" title="How to make the ListView's selector influence multiple rows in Android">
+                    <span class="meta">2014-10-14</span>
+                    <a href="/posts/2014/how-to-make-the-listviews-selector-influence-multiple-rows-in-android.html">How to make the ListView's selector influence multiple rows in Android</a>
+                </li>
+            
+                <li class="item" title="产品思维与丰富文档是实现开源项目价值最大化的利器">
+                    <span class="meta">2014-10-11</span>
+                    <a href="/posts/2014/maximization-the-value-of-your-open-source-project.html">产品思维与丰富文档是实现开源项目价值最大化的利器</a>
+                </li>
+            
+                <li class="item" title="My IntelliJ IDEA customization">
+                    <span class="meta">2014-09-28</span>
+                    <a href="/posts/2014/my-intellij-idea-customization.html">My IntelliJ IDEA customization</a>
+                </li>
+            
+                <li class="item" title="我是如何阅读开源项目的源代码的">
+                    <span class="meta">2014-09-23</span>
+                    <a href="/posts/2014/how-am-i-read-open-source-projects-code.html">我是如何阅读开源项目的源代码的</a>
+                </li>
+            
+                <li class="item" title="release your project into maven repository via Sonatype">
+                    <span class="meta">2014-08-03</span>
+                    <a href="/posts/2014/release-your-project-into-maven-repository-via-sonatype.html">release your project into maven repository via Sonatype</a>
+                </li>
+            
+        </ol>
+    </div>
+</div>
+    </div>
+    <div class="footer">
+        <div class="summary">
+            <p>Copyright <i class="fa fa-copyright"></i> 2014 - <i class="fa fa-code"></i> Vince Styling</p>
+            <p><i class="fa fa-envelope"></i>&emsp;lingyunxiao@qq.com</p>
+            <p><i class="fa fa-rmb"></i>&emsp;I'm Chinese ;-)</p>
+        </div>
+        <div class="site-info">
+            <p>Site hosted by <a href="https://pages.github.com/">Github Pages</a></p>
+            <p>Generated by <a href="http://khaleesi.vincestyling.com/">Khaleesi</a></p>
+            <p>Powered by <a href="https://www.ruby-lang.org/en/">Ruby</a></p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+</body>
+</html>
