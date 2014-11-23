@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/resume.css" media="screen" rel="stylesheet" type="text/css">
+    <title>Vince Styling's Resume in 2014</title>
+</head>
+<body>
+    <div class="container">
+    <div class="personal_info">
+        <img src="/images/avatar.png"/>
+        <div class="basic_info">
+            <h1>凌云霄 (Vince Styling)</h1>
+            <h2>更新时间：2014-11-23</h2>
+            <div class="contact">
+                <ul>
+                    <li><span>联系电话</span>+86 159 2035 3007</li>
+                    <li><span>电子邮件</span><a href="mailto:lingyunxiao@qq.com">lingyunxiao@qq.com</a></li>
+                    <li><span>个人网站</span><a href="http://vincestyling.com" target="_blank">vincestyling.com</a></li>
+                    <li><span>居住地</span>广东省-珠海市-香洲区</li>
+                </ul>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="dev_experience">
+        <div class="employment">
+            <h1>工作经历</h1>
+            <div class="employ" id="yy_employ">
+                <p class="period"><i class="fa fa-at fa-lg"></i><span>欢聚时代(YY.Inc)</span>2013 / 7 -- 2014 / 6</p>
+                <p class="position">Android开发工程师</p>
+                <div class="summary">
+                    <p>主要负责爱小说阅读器的架构设计及开发阅读功能，项目源代码发布于我的GitHub上，地址是：<a href="https://github.com/vince-styling/ixiaoshuo-android" target="_blank">https://github.com/vince-styling/ixiaoshuo-android</a>。阅读器的原版由于公司策略调整，已经下线。鉴于项目的设计风格新颖美观，虽然小巧但仍然有很多技术挑战在内，所以我在离职后决定重拾此前的代码，完善在公司时由于匆忙未及细细打磨的功能，并重新实现原项目中由其他同事负责的功能，因此目前开源的版本中全部代码均由我实现。</p>
+                    <a href="/images/resume/ixiaoshuo_screenshots.jpg" target="_blank" title="点击查看大图"><img src="/images/resume/ixiaoshuo_screenshots.jpg"/></a>
+                    <p>这个项目的定位是在线书籍阅读器，必须在服务端数据平台的支撑下才能生存，于是我巧妙地利用了GitHub Pages的静态资源映射服务，将我从其他阅读网站上抓取到的书籍数据通过Http暴露出来，使得阅读器能够像与真正的动态服务端交互一样获取到填充数据，完成所有逻辑流程。为了方便访问，我开放了个人网站的二级域名<a href="http://ixiaoshuo.vincestyling.com/" target="_blank">http://ixiaoshuo.vincestyling.com/</a>作为数据入口，阅读器所有静态资源均托管于<a href="https://github.com/vince-styling/ixiaoshuo-data-center" target="_blank">ixiaoshuo-data-center</a>项目内。</p>
+                    <p>这个项目使我进一步巩固了2D图形绘制技术，大大提高了复杂UI效果的绘制能力，并丰富了各种Drawable的应用场景及其优缺点。同时填补了我之前在效果图还原过程中不善于与设计人员沟通的空白，加深了对效果细节的把握能力，学会指导美工快速产出合乎程序逻辑的切图。积极追求完美的显示效果，在调优的过程中体会到Android Monitor的好处并加以运用，特别热衷于通过HierarchyViewer来对布局中各个元素的绘制性能进行检测，懂得去分析然后找出最佳方案。项目中多次使用了ViewPager，由此激发我阅读其源代码的想法，在参考著名项目<a href="http://viewpagerindicator.com/" target="_blank">ViewPagerIndicator</a>后在阅读器主页中实现顶部选项卡的平滑切换效果，培养了自己积极学习开源社区项目的习惯。</p>
+                    <p>项目中实现了自己的PullToLoadListView逻辑，对Scroller、VelocityTracker、OverScroll等滑动的相关类或接口进行了深入学习，对ViewGroup及View这两个2D视图基类的大部分API都有所了解。通过细心调试，成功从ListView源代码中抽取出findMotionRow()方法来实现项目的发现模块中每个列表项目的手指按下时的完美效果(详情参见我另一篇文章)。此举除了增强我的调试能力外，更锻炼了我从源代码中定位关键逻辑的思维。</p>
+                    <p>在雷达模块中首次尝试统筹多个Animator去完成这个相当复杂的扫描动画，过程曾多次与设计人员协商切图的细微之处，不断地从互联网上学习Animator的API及用法，改进绘制算法，在实现这个效果的同时为随后的动画绘制技能打下坚实的基础。</p>
+                </div>
+                <p class="position">Netroid：Android Http框架</p>
+                <div class="summary">
+                	<p>Netroid是我在YY后期负责为公共部门开发的一个Http操作库，基于Google官方的Volley进行扩展。文档站点是：<a href="http://netroid.cn/" target="_blank">http://netroid.cn/</a>，代码开源于我的GitHub：<a href="https://github.com/vince-styling/netroid" target="_blank">https://github.com/vince-styling/netroid</a>。</p>
+                	<p>这个项目使我加深了Android主线程与线程池之间交互的了解，对Http头、状态码、响应解析、文件续传等网络请求执行的核心原理有了更确切的认识。在代码写作方面，这个宝贵的实践过程无疑增强了我的接口设计水平和对象命名的合理性。</p>
+                	<p>在开发完成后注重于降低使用者的集成难度，学习并掌握了发布项目到Maven仓库的技能。随后首次尝试使用Markdown写文档，并于后期通过自学Ruby开发出文档生成器来美化展示效果。在文档写作过程中努力揣摩开发者心理，对可能被关注的重点功能作尽可能详细的描述，引导开发者去理解设计意图，务求用简洁清晰的词句将每个可能产生混乱的技术点讲清楚，文档的制作时间更是占据了整个开发过程的60%。又结合自己的开发经验及对其它App的研究，讲解一些特殊场景下的解决方案，释放项目照顾周到的信号来消除技术选型者的顾虑。有时为了讲解一个功能点，可能需要作两三天的研究，结果只能转化为数行的文字，不过这份经历是我从项目中获得的最大收获，令我对文档更重视，认为合格的文档比理想的代码更重要。正是由于这份文档的完成，以及我在开源社区的积极推广，使项目在开源后获得了广泛的关注，得到赞赏的同时也接收了一些改进意见，为持续完善增添不少的动力。</p>
+                	<p>过程中我受到了很多来自StackOverflow社区的启发，并逐渐养成天天浏览SO的习惯，对关于Volley的问题特别关切，在积极分享我的代码经验同时也尝试将Netroid推广到英文社区。</p>
+                </div>
+            </div>
+            <div class="employ" id="mbook_employ">
+                <p class="period"><i class="fa fa-at fa-lg"></i><span>广州迈步信息科技有限公司(mbook.cn)</span>2011 / 4--2013 / 6</p>
+                <p class="position">Android客户端开发</p>
+                <div class="summary">
+                    <a href="/images/resume/mbook_reader_screenshots.jpg" target="_blank" title="点击查看大图"><img src="/images/resume/mbook_reader_screenshots.jpg"/></a>
+                    <p>公司主要做在线阅读服务，在职期间负责开发麦壳阅读器，实现书架全部功能（见效果图），协助设计三种风格的书架界面，解决书籍封面 Bitmap 过大的内存问题，对 ListView 在快速滑动时由于书籍过多导致不必要的封面加载进行优化（使用 WeakReference 策略）。兼容主流屏幕分辨率，默认为标准屏幕 480x800hdpi ，并有大量真机实测和精细化调优。在模拟器上对低端屏幕 320x480 mdpi 也进行了优化，提供 layout-mdpi 、 drawable-mdpi 资源目录来进行针对性适配，对 540x960 hdpi 也进行了真机调试。<br/><a href="/images/resume/mbook_reading.jpg" target="_blank" title="点击查看大图"><img src="/images/resume/mbook_reading.jpg"/></a></p>
+                    <p>负责书籍阅读全部功能（见效果图），使用 RandomAccessFile 实现读取文件指定区间的字节，检测并避免区间起始及结束位置出现不完整字节的情况，支持 GBK 、 UTF-8 、 BIG5 、 UTF16-LE 、 UTF16-BE 编码，对各种编码的中文字符和英文字符所占字节数进行大量测试，从而解决阅读乱码的问题。并根据编码扫描文件的全部内容，提取出符合预定规则的章节列表，实现断章功能。</p>
+                    <p>由于无法预估阅读文件大小，所以每次只能读取一定量的内容缓存并阅读，在翻页时再根据需要读取下一块缓存，这里出现的另一个难点是翻上一页。我的实现方法是从起点向前取一整段的内容，然后从段首开始 breakText ，并将每次 breakText 的行索引保存，依此类推获得足够的行数后，返回计算出来的起始行索引。</p>
+                    <p>阅读界面的显示效果使用自定义 View 实现，对于 Canvas 的 API 有很熟练的运用。画翻页效果的动画最大的难点是怎样使动画的体验更真实，我在计算时将每次重画的距离设定为剩余距离的一半，在接近屏幕边缘时减速，让视觉效果上感觉到动画即将结束，又不会太快结束的真实效果。</p>
+                    <p>通过 Paint.breakText() 计算每行字数时，由于中英文混合或者标点符号的影响，有可能会出现每行末端不是很对齐的情况，经过多次尝试，使用 Canvas.drawPosText() 进行逐字微调，使每行末端保持对齐的最佳体验。我们在段间距、自定义阅读字体、行首不出现标点符号等细节上做了很多优化，都取得了不错的用户反馈。</p>
+                    <p>阅读器支持在线阅读移动阅读基地的收费书籍，书籍基本信息及章节列表由服务端部署的程序来抓取，并返回给客户端，客户端通过使用 Android 集成的 HttpClient 实现抓取章节内容进行阅读、登录阅读基地、付费购买书籍、预读一定数量章节的功能。主要是模拟用户请求，利用 HtmlParser 实现内容提取并处理，最终展示给用户阅读的过程。由于人手有限，加上我在此之前有过很丰富的网页抓取经验，所以服务端的抓取程序也是由我去开发维护。而最核心的章节内容提取功能放在客户端实现，为了避免对方网站的改版导致我们已发布的版本解析失败而无法阅读，我自定义了抓取规则的 xml 描述文件，客户端在适当时候会联网下载这个文件来更新抓取规则。</p>
+                    <p>作为一个附加功能，我们提供了 epub 电子书的阅读， epub 规范解析是我通过 GitHub 社区获得的解决方案，并由此开始尝试富文本阅读器的功能研发。实现原理主要是通过 XmlPullParser 解析自己构建的 epub 电子书，对某些预定的 html 标记进行渲染处理，逐段绘制出完整的阅读界面，目前解决了浮动内容块、内容块隔离等绘制难题。我的功能设想是做一个 epub 电子书的平台，运营同事用来制作电子书，然后打包输出，再导入到阅读器内阅读，以下截图是我的初步成果。<br/><a href="/images/resume/mbook_richtext_reader.jpg" target="_blank" title="点击查看大图"><img src="/images/resume/mbook_richtext_reader.jpg"/></a></p>
+                </div>
+            </div>
+            <div class="employ" id="kaixinhk_employ">
+                <p class="period"><i class="fa fa-at fa-lg"></i><span>广州网旅互动信息科技有限公司</span>2008 / 10 -- 2011 / 2</p>
+                <p class="position">技术负责人</p>
+                <div class="summary">
+                    <p>以技术入股的方式创业，在职期间全权负责开心香港网（ kaixinhk.com ，已关闭）的技术工作，使用 Spring MVC+Velocity+MySQL 的架构，并用 Maven 作资源管理。实现会员系统、香港资讯、香港地标、香港影剧、香港展览等全部的网站功能。开发过程中遵循面向接口编程的规范，对于 Spring MVC 的自动装载、类方法注解、接口参数智能填充都有充分的实践了解，对 Velocity 的 layout 、宏方法、 vm 脚本增加了应用经验。</p>
+                    <p>由于人手很有限，前端页面大部分也由我来开发，使用 DIV+CSS+Jquery 架构，通过自学熟练掌握 DIV 跟 CSS 配合使用的原则，学会用 FireBug 等前端调试工具来改进用户体验。通过不断查阅Jquery的文档，成功实现多个符合网站需求的Jquery插件。曾经深入研究过 ckEditor 的 API 文档，删减掉不必要的功能，配合 Jquery 对无法上传图片的问题进行 patch ，并在 iteye 社区发表了经验分享文章（ 181054867.iteye.com ）。</p>
+                    <p>部分数据是通过从香港地方网站抓取而来，包括电影信息、电视节目表、航班信息、酒店报价、餐厅信息、旅游景点等。普通的抓取任务使用 httpClient 进行请求， HtmlParser+Jsoup 进行 DOM 解析，部署在 Linux 运行平台。复杂的动态网页使用 Watij 进行浏览器行为模拟，获取 javascript 构建的 DOM 节点源代码再进行解析，部署在 Windows 运行平台。</p>
+                    <p>这份创业的经历极大地锻炼了我的独立工作能力，所有相关的技术均为我自学掌握，在对Html与Javascript完全陌生的条件下克服相当大的困难，服务器运维能力的空白也是我面对的另一项挑战。在结束了公司后，我回顾了整个过程，发现在技术方面我变得更成熟，更善于解决疑难问题，在产品方面，不断地参与到产品设计的工作令我开始注重产品体验，时刻思考如何做出令用户满意的效果，也开始具备一定的审美功底，为随后快速转型客户端开发打下稳固的基础。</p>
+                </div>
+            </div>
+            <h1 id="expof_events">项目经验</h1>
+            <div class="employ">
+                <p class="period"><a href="http://apkinfoextractor.vincestyling.com/" target="_blank">ApkInfoExtractor</a></p>
+                <div class="summary">
+                	<p>这个项目是我在YY期间受到同事启发而做的一个小工具，用于批量将APK文件内的名称、图标、包名、版本信息提取为excel或sql。在初次接触Java时我曾经学习过Java Swing，多年后了解到JavaFX的情况，发现Java做C/S端程序还是很好玩的。在听到同事说想要提取游戏列表信息时，我意识到这是我学习JavaFX的好时机。</p>
+                	<p>过程的收获是对Mac(dmg)、Ubuntu(deb)、Windows(exe)三大操作系统的安装文件有了很多的认识，领悟到所谓的安装包其实只是一个按照既定规则生成的压缩文件夹而已。同时练习了三个平台的命令行技能，了解到它们的差异及如何去兼容。更重要的是熟悉了Android的打包工具aapt(Android Asset Packaging Tool)的丰富功能，也算是我积极学习新知识对于我Android本职的一种迂回受益吧。</p>
+                </div>
+            </div>
+            <div class="employ">
+                <p class="period"><a href="http://khaleesi.vincestyling.com/" target="_blank">Khaleesi</a></p>
+                <div class="summary">
+                	<p>Khaleesi是我上述提到的Ruby静态博客生成器，我的很多子站都是用这个工具生成。开发初衷是为Netroid添加代码着色，另外一个原因是优化我的技术博客。</p>
+                	<p>在开始编码工作前，我花了三天时间做技术选型工作，了解Python及Ruby两种语言的特性，最终折服于Ruby强大的开发文档而确定学习Ruby语言。Ruby提供了非常丰富的接口来操作字符串，另外它的正则表达式也是非常令人印象深刻，官方文档更是对每个方法都进行用法举例，大大降低了初学者的难度。程序逻辑的操作也是非常灵活，相对于Java的单调而言，Ruby的确如其口号“程序员的最好朋友”而言的令开发者满意。其社区也是非常活跃，特别是发布应用到RubyGems上只需要两个简单的命令，比发布到Maven上容易得多。我非常喜欢这个语言，会持续关注其发展。</p>
+                	<p>这份项目经验除了让我开阔编程语言的视野外，也是我英文表达能力及文档组织能力的巅峰体现。我前后整整花了两周的时间来完成文档，参考各种同类型项目的文档来弥补自己的词汇量及造句不足，坚持不懈地来回翻看文档的已完成部分来激发自己的写作灵感。项目在开始写文档时并没有达到健壮的目标，但我在写文档过程中回顾了开发思路，发现了有很多地方我考虑不周，有些地方需要作容错处理，随后验证自己的质疑，增强程序的健壮性。可以说文档的工作是我此次Ruby之旅最大的收获。</p>
+                	<p>注：Khaleesi这个名字来自于美剧《权力的游戏》中一位女性角色所拥有的头衔。</p>
+                </div>
+            </div>
+            <h1>工作习惯</h1>
+            <div class="employ" id="working_habits">
+                <div class="summary">
+                    <p>严谨细致，在开发前先确立最合适的解决方案，在开发过程中努力保持思路清晰，并时刻思考如何去测试自己的代码。需要中断开发流程时，会在代码内标识开发思路的TODO提醒，避免再次启动开发进程时不知所措。</p>
+                    <p>在使用了一些开源组件时会努力尝试去理解它的原理，并作出相应的细节调整。</p>
+                    <p>具备很强的调试能力，善于从源代码入手来评估技术工作。</p>
+                    <p>信奉“磨刀不误砍柴功”，热衷于根据个人习惯去深入学习使用各种工具以提高工作效率。</p>
+                    <p>提交代码前先检查所有的修改点，删除调试代码，再次确认不会影响其它人的功能。在同步团队其他成员的代码时，会检查一下他们的代码有没有问题。</p>
+                    <p>倾向于在做第一个版本时就尽量将效果图还原到程序中，不喜欢后面再一个一个UI问题去解决。</p>
+                    <p>认为合理的命名就是最好的注释，所以在开发过程中习惯于不写注释。</p>
+                    <p>在开发初期使用Genymotion来测试并确认效果，最后才上真机调试。</p>
+                    <p>非常热衷于分享自己的知识，擅于从互联网上寻找疑难问题的技术方案。</p>
+                    <p>注重代码性能，乐于尝试不同的方案以找到最佳实现。</p>
+                    <p>喜欢在代码中应用面向对象的多态特性，不喜欢写太多if.else语句。</p>
+                    <p>推崇以小时为单位评估工作任务的敏捷开发方式。</p>
+                    <p>喜欢开放自由的工作氛围，认为这种方式能有效地激发创新能力。</p>
+                    <p>懂一些简单的photoshop技巧及效果图标注方法。</p>
+                    <p>对拥有编码能力的产品经理或美术设计人员有瞬间膨胀的好感。</p>
+                    <p>善于提取网页数据，有数据整理及分析能力。</p>
+                    <a href="/images/resume/working_at_yy.jpg" target="_blank" title="点击查看大图"><img src="/images/resume/working_at_yy.jpg"/></a>
+                </div>
+            </div>
+            <h1>个人性格</h1>
+            <div class="employ" id="personality">
+                <div class="summary">
+                    <p>不用鼠标工作、StackOverflow重度依赖症、坚决不使用百度、喜欢新鲜奇特效果、喜欢改网页样式、对使用Windows开发不屑、喜欢逛淘宝、懒人、貌似处女座、崇尚美感。</p>
+                </div>
+            </div>
+        </div>
+        <div class="added_info">
+            <div class="brands">
+                <a href="https://github.com/vince-styling" target="_blank" title="my GitHub"><i class="fa fa-github fa-lg"></i>&nbsp;&nbsp;GitHub</a>
+                <a href="http://stackoverflow.com/users/1294681/vincestyling" target="_blank" title="my StackOverflow"><i class="fa fa-stack-overflow fa-lg"></i>&nbsp;&nbsp;StackOverflow</a>
+            </div>
+            <div style="clear:both"></div>
+            <div class="info">
+                <h1>个人信息</h1>
+                <ul>
+                    <li class="field">姓名：</li><li>凌云霄</li>
+                    <li class="field">出生年份：</li><li>1988</li>
+                    <li class="field">户口地：</li><li>广东省吴川市</li>
+                    <li class="field">工作经验：</li><li>七年以上</li>
+                    <li class="field">求职状态：</li><li>待业</li>
+                </ul>
+                <div style="clear:both"></div>
+            </div>
+            <div class="info">
+                <h1>专业技能</h1>
+                <div class="block">
+                    <p>Android</p>
+                    <p>Android UI</p>
+                    <p>Genymotion</p>
+                    <p>IntelliJ IDEA</p>
+                    <p>Sublime Text</p>
+                </div>
+                <div class="block">
+                    <p>Java</p>
+                    <p>Ruby</p>
+                    <p>HTML</p>
+                    <p>CSS</p>
+                    <p>JavaScript</p>
+                    <p>Jquery</p>
+                    <p>JavaFX</p>
+                    <p>Perl</p>
+                    <p>Regexp</p>
+                </div>
+                <div class="block">
+                    <p>StackOverflow</p>
+                    <p>GitHub</p>
+                    <p>Blogging</p>
+                    <p>Open Source</p>
+                </div>
+                <div class="block">
+                    <p>Spring MVC</p>
+                    <p>Velocity</p>
+                    <p>MySql</p>
+                    <p>Lucene</p>
+                    <p>Nginx</p>
+                    <p>Tomcat</p>
+                    <p>Resin</p>
+                </div>
+                <div class="block">
+                    <p>Git/Subversion</p>
+                    <p>Maven</p>
+                    <p>Gradle</p>
+                    <p>Wireshark</p>
+                    <p>Terminal</p>
+                </div>
+                <div class="block">
+                    <p>MacOS</p>
+                    <p>Ubuntu</p>
+                    <p>Windows</p>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+</body>
+</html>

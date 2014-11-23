@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, h1, h2 {
+    font-family: "Georgia", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, Arial, sans-serif;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: #009575;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #007a6e;
+}
+
+.container {
+    width: 980px;
+    margin: 0 auto;
+    padding: 32px 0;
+    color: #121212;
+    background-color: #ffffff;
+}
+
+.personal_info {
+    border-bottom: 4px solid #7baad6;
+    padding-bottom: 15px;
+}
+
+.personal_info img {
+    border-radius: 4px;
+    width: 220px;
+    float: left;
+}
+
+.personal_info .basic_info {
+    float: right;
+}
+
+.personal_info .basic_info h1 {
+    color: #007a6e;
+    font-size: 65px;
+}
+
+.personal_info .basic_info h2 {
+    padding-right: 8px;
+    text-align: right;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.personal_info .contact ul {
+    list-style: none;
+    width: 600px;
+}
+
+.personal_info .contact ul li {
+    line-height: 46px;
+    font-size: 15px;
+    float: left;
+    width: 300px;
+}
+
+.personal_info .contact ul li span {
+    background-color: #4b4b4b;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px 9px 5px 10px;
+    margin-right: 7px;
+    font-size: 13px;
+}
+
+.dev_experience {
+    padding: 20px 10px 70px 10px;
+}
+
+.dev_experience .employment {
+    width: 690px;
+    float: left;
+}
+
+.dev_experience .employment h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #007a6e;
+}
+
+
+.dev_experience .employment img {
+    width: 100%;
+    border-radius: 2px;
+}
+
+.dev_experience .employment .employ {
+    margin-bottom: 20px;
+}
+
+.dev_experience .employment p.period {
+    line-height: 22px;
+}
+
+.dev_experience .employment p.period span {
+    padding-right: 10px;
+    padding-left: 6px;
+    font-weight: bold;
+}
+
+.dev_experience .employment p.period i {
+    color: #8B0000;
+}
+
+.dev_experience .employment p.period a {
+    font-size: 20px;
+}
+
+.dev_experience .employment p.position {
+    line-height: 52px;
+    font-weight: bold;
+}
+
+.dev_experience .employment .summary p {
+    line-height: 30px;
+    text-indent: 32px;
+    font-size: 15px;
+    margin-bottom: 8px;
+    text-align: justify;
+}
+
+.dev_experience .added_info {
+    float: left;
+    margin-left: 20px;
+}
+
+.dev_experience .added_info .brands {
+    list-style: none;
+}
+
+.dev_experience .added_info .brands a {
+    margin-left: 18px;
+}
+
+.dev_experience .added_info .info {
+    border-left: 2px solid #7baad6;
+    padding-left: 30px;
+    margin-top: 30px;
+}
+
+.dev_experience .added_info .info .block {
+    margin-bottom: 16px;
+    line-height: 30px;
+}
+
+.dev_experience .added_info .info h1 {
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+.dev_experience .added_info .info ul {
+    list-style: none;
+    width: 200px;
+}
+
+.dev_experience .added_info .info .field {
+    font-weight: bold;
+}
+
+.dev_experience .added_info .info ul li {
+    line-height: 30px;
+    font-size: 14px;
+    float: left;
+    width: 92px;
+}
