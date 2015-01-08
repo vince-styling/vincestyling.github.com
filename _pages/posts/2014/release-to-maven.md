@@ -4,11 +4,15 @@ description: Walking with me step by step to release our project into maven repo
 identifier: cb0ddc9e5ffb5daee2eb
 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 
-Maven is the popular place where to hosted our java open source projects so we can share with others more simply. Unlike to `RubyGems`, publish to Maven Central repository was a bit of difficult and complication for a newbie, even an experienced programmer. Unfortunately i didn't figure out a complete walking guidance to help, thus i decide to archive myself experience in my blog.
+Maven is the popular place where we hosted our java open source projects so we can share with others more simply. Unlike to `RubyGems`, publish to Maven Central repository was a bit of difficult and complication for a newbie, even an experienced programmer. Unfortunately I didn't figure out a complete step-by-step tutorial to help, thus I decide to archive the experience in my blog.
 
-If you did the search for this knowledge ever, you surely aware that the most people knows approach is work with Sonatype, of course i'm follow that way as well.
+If you did the search for this knowledge ever, you surely aware that the most people knows approach is work with Sonatype, of course I'm follow that way as well.
+
 
 # Guidance
+
+
+## Register a JIRA account
 
 To begin, you'll need to [register a JIRA account](https://issues.sonatype.org/secure/Signup!default.jspa), then configure that account on the maven settings file `~/.m2/settings.xml`, add below information in right place :
 
@@ -27,7 +31,10 @@ To begin, you'll need to [register a JIRA account](https://issues.sonatype.org/s
 </servers>
 ```
 
-Secondly, [create an Issue of your project](https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134) and fill up the project's information you can find. After that, we start to waiting the `human review`, Sonatype will prepare Maven repositories for us and set the issue status as **Resolved** once it get done. We'll receive an e-mail notice indicating that the issue is resolved, please do not deploy until you received it. Normally this step would takes less than 2 business days, if you havent receive that e-mail, you can leave a comment on the JIRA issue consider as remind them. The relate role who assign to handle your issue will update it quickly. If they write back as comment info like following, that means you can start to release your project.
+
+## Create an Issue of your project
+
+Secondly, [create an Issue of your project](https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134) and fill up the project's information you can find. After that, we start to waiting the `human review`, Sonatype will prepare Maven repositories for us and set the issue status as **Resolved** once it get done. You may receive an e-mail notice indicating that the issue is resolved, please do not deploy until you received it. Normally this step would takes less than 2 business days, if you havent receive that e-mail, you can leave a comment on the JIRA issue consider as remind them. The relate role who assign to handle your issue will update it quickly. If they write back as comment info like following, that means you can start to release your project.
 
 ```
 Configuration has been prepared, now you can:
@@ -36,16 +43,23 @@ please comment on this issue when you promoted your first release, thanks
 ```
 
 
+### Create an issue does not always necessary
+
+Sometime, in fact, the procedure of "Create an Issue of your project" can be omitted if you've ever done release before. I reckon that the main mission of the Sonatype staff done in `human review` which make us waiting a bit of time is verify the GroupId which you gave whether holding by others or available for you. For instance, if you claim a GroupId as "org.apache" which already belong to Apache using, then you'll be asking to prove the ownership or have to change other's.
+
+In other words, meanwhile you release an artifact successfully, you'll able to own all the necessary permissions of the GroupId you has used, you `needn't` raise any issue for the subsequent artifacts when you going to release by the same GroupId. **Only one JIRE issue per top-level GroupId is necessary**, heard it in recent when I'm going to release my another artifact "asqliteplus" with the same GroupId "com.vincestyling", the [JIRA issue 13140](https://issues.sonatype.org/browse/OSSRH-13140) would describe more.
+
+
 
 ## Prepare the GPG key
 
-Find your way to install `GnuPG` then use it to generate a key pair :
+Find way yourself to install `GnuPG` then use it to generate a key pair :
 
 ```bash
 ~ $ gpg --gen-key
 ```
 
-If it's your first time to generate the key, make yourself never forget the passphrase because it would be required in next time you release an artifact, i encounter the passphrase lost problem before, it was too bored for get back this, so don't make the same mistake i made. If you sadly forgot the passphrase or the key was expired, you should delete the past key then re-generate a new key, don't use a duplicate key name at all. e.g. if you ever generated a key named `vincestyling`, then you couldn't use it again, it would be causing a name conflict in the key server. Although you can release successful, but the name conflict will let you get some fatal error like `signature failed` when you try to close the Staging Repository in future.
+If it's your first time to generate the key, make yourself never forget the passphrase because it would be required in next time you release any artifacts, i encountered the passphrase lost problem before, it was too bored for get back this, so don't follow my step at this aspect. If you sadly forgot the passphrase, you should delete the past key then re-generate a new key, don't use a duplicate key name at all. e.g. if you ever generated a key named `vincestyling`, then you couldn't use it again, it would be causing a name conflict in the key server. Although you can release successful, but the name conflict will make you failed with some fatal errors like `signature failed` when you try to close and release the Staging Repository in future.
 
 After generated the key pair, we should take the public key and distribute it to the remote server, use `gpg -k` to grab the key we just had :
 
@@ -59,23 +73,28 @@ uid                  lingyunxiao (lingyunxiao) <lingyunxiao@qq.com>
 sub   2048R/F32F736E 2014-08-01 [expires: 2014-08-13]
 ```
 
-That output information like above, keep an eye of the `F526C615` string, it's your public key which you would distribute to, copy the `F526C615` place's string then send the key :
+The output information like above, keep an eye on the `F526C615` string, it's your public key which you would distribute to, copy where the F526C615 place's string then distributing it :
 
 ```bash
 ~ $ gpg --keyserver hkp://pgp.mit.edu --send-keys F526C615
 ```
 
-To be safely, we need to make sure that just only one key we have in our computer. If more, we must remove the rest to prevent the name conflict problem. There are two way to do this action, first you can use command `gpg --delete-keys`, the other way is install the Graphic Application "GPG keychain Access" to checking this :
+To be safely, we need to make sure that just only one key we have in our computer. If more, we must remove the rest to prevent the name conflict problem. You can use command `gpg --delete-keys` or install the Graphic Application "GPG keychain Access" to checking this :
 
 ![GPG keychain Access](/images/release_to_maven_keychain.png "GPG keychain Access")
 
-Eventually, we've been prepare all jobs about GPG KEY. As supplement, you can pay attention with this [post](http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven) for more details.
+At this time, we finished all the works of GPG KEY. As supplement, you can checking this [post](http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven) for more details.
+
+
+### Handle the GPG key expire problem
+
+It's still suggest you to have the GPG key expired while generating it even if which will causing the release failed in the next time you attempt to releasing an artifact. You'll got **signing failed: Unusable secret key** error if it expired during preparing the artifact. But it's quite easy to resolve via `extend` the expiration date of that GPG key. You can follow [this post](http://www.g-loaded.eu/2010/11/01/change-expiration-date-gpg-key/) to learn how to do it.
 
 
 
 ## Configure your project module
 
-In the project module you wish to publishing, configure some necessary message included accept sonatype as module's parent, apply a `Snapshot` version number, configure the `scm` information, configure maven release `plugin` etc.
+In the project module which you intend to publishing, configure some necessary messages included adopt sonatype as module's parent, apply a `Snapshot` version number, configure the `scm` information, configure maven release `plugin` etc.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -154,6 +173,8 @@ In the project module you wish to publishing, configure some necessary message i
 </project>
 ```
 
+### release a snapshot version
+
 Now we are going to release a snapshot version to the `Staging Repository`, open your Terminal and point to following commands :
 
 ```bash
@@ -162,7 +183,7 @@ Now we are going to release a snapshot version to the `Staging Repository`, open
 ~ $ mvn release:perform
 ```
 
-In the `prepare` goal, Maven would ask you the `GPG passphrase` several times, also tagging your current version, commit two changes, push all modification to the `remotes` at last. Because Maven did a few VCS operations, thus we should rollback them if we got something wrong with this release process.
+In the `prepare` goal, Maven would ask you the `GPG passphrase` several times, also tagging your current version, commit two changes, push all modifications to the `remotes` at last. Because Maven did a few VCS operations, thus we should rollback them if we got something wrong with this release process.
 
 ```bash
 `10a55a3b5b9b4d473e78ccd0c60af0672d7adecd` is commit hash code before release.
@@ -178,21 +199,25 @@ Then perform the "release a snapshot version" operation again.
 
 ## Release it in the Sonatype
 
-After above release was done successfully, we are ready to do the next job in Sonatype. To release the artifact, open your favorite browser and navigate to [https://oss.sonatype.org/](https://oss.sonatype.org/). You should `Log In` by the earlier account, then go to the `Build Promotion` tab's `Staging Repositories` which in the left pane, find out the Repository that you just release(normally at the list bottom), click the "Close" button then do the rest.
+After above release was done successfully, we are ready to do the next job in Sonatype to release the artifact. Open your favorite browser and navigate to [https://oss.sonatype.org/](https://oss.sonatype.org/). You should `Log In` by the earlier account, then go to the `Build Promotion` tab's `Staging Repositories` which in the left pane, find out the Repository that you just release(normally at the list bottom), click the "Close" button then do the rest.
 
 ![Release It](/images/release_to_maven_release_it.png "Release It")
 
-Sometime you'll get the error like 'signature failed', remind you to solve the GPG Key pair conflict problem. If happens, you should drop the artifact, then re-release again. Ensure the "Activity" field says "Last operation completed successfully" before you move on.
+Sometime you'll get the error like 'signature failed', remind you to solve the GPG Key pair conflict problem. If happens, you should drop the artifact, then re-release again. Ensure the "Activity" field reported **Last operation completed successfully** before you move on.
 
 ![Release It](/images/release_to_maven_release_it_errors.png "Release It")
 
-If you didn't see any error in the bottom "Activity" pane, means the `Release` button might already be enable, keep Refresh the Repositories if you didn't get it, now it's time to do the final step :
+If you didn't see any errors in the bottom "Activity" pane, means the `Release` button might already be enable, keep Refresh the Repositories until you got it, now it's time to do the final step :
 
 ![Release It](/images/release_to_maven_release_it_final.png "Release It")
 
-Congratulation, you've done all job about release, once you get successfully, your artifact will be synchronize to the Maven Central soon enough. The best way to verify whether success or not is search your artifact in [search.maven.org](search.maven.org), but it may take time before your artifact display, typically within 10 minutes even hours, so be patient with it.
+Congratulation, you've done all jobs about release, once you get successfully, your artifact will be synchronize to the Maven Central soon enough. The best way to verify whether success or not is search your artifact in [search.maven.org](http://search.maven.org/), but it may take time before your artifact display, typically within 10 minutes even hours, so be patient with it.
 
-Throughout this improvement of my ability process, i referenced many articles, it would be detailedly to mark them in the end. I follow this [guide](http://central.sonatype.org/pages/ossrh-guide.html) and [docs](https://docs.sonatype.org/pages/diffpages.action?pageId=6619209&originalId=13598740) in Sonatype all the time. Also below is my two release issue to record.
+
+
+# Final Thoughts
+
+Throughout this improvement of my ability process, i referenced many articles, it would be detailedly to mark them in the end. I followed this [guide](http://central.sonatype.org/pages/ossrh-guide.html) and [docs](https://docs.sonatype.org/pages/diffpages.action?pageId=6619209&originalId=13598740) in Sonatype all the time. Also below are two release issues of mine to record.
 
 - [OSSRH-9739](https://issues.sonatype.org/browse/OSSRH-9739)
 - [OSSRH-10903](https://issues.sonatype.org/browse/OSSRH-10903)
