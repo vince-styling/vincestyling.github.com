@@ -42,14 +42,16 @@
     <a class="title">release your project into maven repository via Sonatype</a>
     <p class="meta">
         <i class="fa fa-pencil"></i> Posted on Sun  3 Aug 00:27 2014&emsp;
-        <i class="fa fa-edit"></i> Modify on Tue 16 Sep 23:23 2014
+        <i class="fa fa-edit"></i> Modify on Fri  9 Jan 00:29 2015
     </p>
     <div id="body" class="${variable:additional_css}">
-        <p>Maven is the popular place where to hosted our java open source projects so we can share with others more simply. Unlike to <code>RubyGems</code>, publish to Maven Central repository was a bit of difficult and complication for a newbie, even an experienced programmer. Unfortunately i didn&#39;t figure out a complete walking guidance to help, thus i decide to archive myself experience in my blog.</p>
+        <p>Maven is the popular place where we hosted our java open source projects so we can share with others more simply. Unlike to <code>RubyGems</code>, publish to Maven Central repository was a bit of difficult and complication for a newbie, even an experienced programmer. Unfortunately I didn&#39;t figure out a complete step-by-step tutorial to help, thus I decide to archive the experience in my blog.</p>
 
-<p>If you did the search for this knowledge ever, you surely aware that the most people knows approach is work with Sonatype, of course i&#39;m follow that way as well.</p>
+<p>If you did the search for this knowledge ever, you surely aware that the most people knows approach is work with Sonatype, of course I&#39;m follow that way as well.</p>
 
 <h1 id="guidance">Guidance</h1>
+
+<h2 id="register-a-jira-account">Register a JIRA account</h2>
 
 <p>To begin, you&#39;ll need to <a href="https://issues.sonatype.org/secure/Signup!default.jspa">register a JIRA account</a>, then configure that account on the maven settings file <code>~/.m2/settings.xml</code>, add below information in right place :</p>
 <div class="highlight xml"><table><tr><td class="linenos"><pre> 1
@@ -77,7 +79,9 @@
 <span class="nt">&lt;/servers&gt;</span>
 </pre>
 </td></tr></table></div>
-<p>Secondly, <a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134">create an Issue of your project</a> and fill up the project&#39;s information you can find. After that, we start to waiting the <code>human review</code>, Sonatype will prepare Maven repositories for us and set the issue status as <strong>Resolved</strong> once it get done. We&#39;ll receive an e-mail notice indicating that the issue is resolved, please do not deploy until you received it. Normally this step would takes less than 2 business days, if you havent receive that e-mail, you can leave a comment on the JIRA issue consider as remind them. The relate role who assign to handle your issue will update it quickly. If they write back as comment info like following, that means you can start to release your project.</p>
+<h2 id="create-an-issue-of-your-project">Create an Issue of your project</h2>
+
+<p>Secondly, <a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134">create an Issue of your project</a> and fill up the project&#39;s information you can find. After that, we start to waiting the <code>human review</code>, Sonatype will prepare Maven repositories for us and set the issue status as <strong>Resolved</strong> once it get done. You may receive an e-mail notice indicating that the issue is resolved, please do not deploy until you received it. Normally this step would takes less than 2 business days, if you havent receive that e-mail, you can leave a comment on the JIRA issue consider as remind them. The relate role who assign to handle your issue will update it quickly. If they write back as comment info like following, that means you can start to release your project.</p>
 <div class="highlight text"><table><tr><td class="linenos"><pre>1
 2
 3</pre></td><td><pre>Configuration has been prepared, now you can:
@@ -85,13 +89,19 @@
 please comment on this issue when you promoted your first release, thanks
 </pre>
 </td></tr></table></div>
+<h3 id="create-an-issue-does-not-always-necessary">Create an issue does not always necessary</h3>
+
+<p>Sometime, in fact, the procedure of &quot;Create an Issue of your project&quot; can be omitted if you&#39;ve ever done release before. I reckon that the main mission of the Sonatype staff done in <code>human review</code> which make us waiting a bit of time is verify the GroupId which you gave whether holding by others or available for you. For instance, if you claim a GroupId as &quot;org.apache&quot; which already belong to Apache using, then you&#39;ll be asking to prove the ownership or have to change other&#39;s.</p>
+
+<p>In other words, meanwhile you release an artifact successfully, you&#39;ll able to own all the necessary permissions of the GroupId you has used, you <code>needn&#39;t</code> raise any issue for the subsequent artifacts when you going to release by the same GroupId. <strong>Only one JIRE issue per top-level GroupId is necessary</strong>, heard it in recent when I&#39;m going to release my another artifact &quot;asqliteplus&quot; with the same GroupId &quot;com.vincestyling&quot;, the <a href="https://issues.sonatype.org/browse/OSSRH-13140">JIRA issue 13140</a> would describe more.</p>
+
 <h2 id="prepare-the-gpg-key">Prepare the GPG key</h2>
 
-<p>Find your way to install <code>GnuPG</code> then use it to generate a key pair :</p>
+<p>Find way yourself to install <code>GnuPG</code> then use it to generate a key pair :</p>
 <div class="highlight bash"><table><tr><td class="linenos"><pre>1</pre></td><td><pre>~ <span class="nv">$ </span>gpg --gen-key
 </pre>
 </td></tr></table></div>
-<p>If it&#39;s your first time to generate the key, make yourself never forget the passphrase because it would be required in next time you release an artifact, i encounter the passphrase lost problem before, it was too bored for get back this, so don&#39;t make the same mistake i made. If you sadly forgot the passphrase or the key was expired, you should delete the past key then re-generate a new key, don&#39;t use a duplicate key name at all. e.g. if you ever generated a key named <code>vincestyling</code>, then you couldn&#39;t use it again, it would be causing a name conflict in the key server. Although you can release successful, but the name conflict will let you get some fatal error like <code>signature failed</code> when you try to close the Staging Repository in future.</p>
+<p>If it&#39;s your first time to generate the key, make yourself never forget the passphrase because it would be required in next time you release any artifacts, i encountered the passphrase lost problem before, it was too bored for get back this, so don&#39;t follow my step at this aspect. If you sadly forgot the passphrase, you should delete the past key then re-generate a new key, don&#39;t use a duplicate key name at all. e.g. if you ever generated a key named <code>vincestyling</code>, then you couldn&#39;t use it again, it would be causing a name conflict in the key server. Although you can release successful, but the name conflict will make you failed with some fatal errors like <code>signature failed</code> when you try to close and release the Staging Repository in future.</p>
 
 <p>After generated the key pair, we should take the public key and distribute it to the remote server, use <code>gpg -k</code> to grab the key we just had :</p>
 <div class="highlight bash"><table><tr><td class="linenos"><pre>1
@@ -109,19 +119,23 @@ uid                  lingyunxiao <span class="o">(</span>lingyunxiao<span class=
 sub   2048R/F32F736E 2014-08-01 <span class="o">[</span>expires: 2014-08-13<span class="o">]</span>
 </pre>
 </td></tr></table></div>
-<p>That output information like above, keep an eye of the <code>F526C615</code> string, it&#39;s your public key which you would distribute to, copy the <code>F526C615</code> place&#39;s string then send the key :</p>
+<p>The output information like above, keep an eye on the <code>F526C615</code> string, it&#39;s your public key which you would distribute to, copy where the F526C615 place&#39;s string then distributing it :</p>
 <div class="highlight bash"><table><tr><td class="linenos"><pre>1</pre></td><td><pre>~ <span class="nv">$ </span>gpg --keyserver hkp://pgp.mit.edu --send-keys F526C615
 </pre>
 </td></tr></table></div>
-<p>To be safely, we need to make sure that just only one key we have in our computer. If more, we must remove the rest to prevent the name conflict problem. There are two way to do this action, first you can use command <code>gpg --delete-keys</code>, the other way is install the Graphic Application &quot;GPG keychain Access&quot; to checking this :</p>
+<p>To be safely, we need to make sure that just only one key we have in our computer. If more, we must remove the rest to prevent the name conflict problem. You can use command <code>gpg --delete-keys</code> or install the Graphic Application &quot;GPG keychain Access&quot; to checking this :</p>
 
 <p><img src="/images/release_to_maven_keychain.png" alt="GPG keychain Access" title="GPG keychain Access"/></p>
 
-<p>Eventually, we&#39;ve been prepare all jobs about GPG KEY. As supplement, you can pay attention with this <a href="http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven">post</a> for more details.</p>
+<p>At this time, we finished all the works of GPG KEY. As supplement, you can checking this <a href="http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven">post</a> for more details.</p>
+
+<h3 id="handle-the-gpg-key-expire-problem">Handle the GPG key expire problem</h3>
+
+<p>It&#39;s still suggest you to have the GPG key expired while generating it even if which will causing the release failed in the next time you attempt to releasing an artifact. You&#39;ll got <strong>signing failed: Unusable secret key</strong> error if it expired during preparing the artifact. But it&#39;s quite easy to resolve via <code>extend</code> the expiration date of that GPG key. You can follow <a href="http://www.g-loaded.eu/2010/11/01/change-expiration-date-gpg-key/">this post</a> to learn how to do it.</p>
 
 <h2 id="configure-your-project-module">Configure your project module</h2>
 
-<p>In the project module you wish to publishing, configure some necessary message included accept sonatype as module&#39;s parent, apply a <code>Snapshot</code> version number, configure the <code>scm</code> information, configure maven release <code>plugin</code> etc.</p>
+<p>In the project module which you intend to publishing, configure some necessary messages included adopt sonatype as module&#39;s parent, apply a <code>Snapshot</code> version number, configure the <code>scm</code> information, configure maven release <code>plugin</code> etc.</p>
 <div class="highlight xml"><table><tr><td class="linenos"><pre> 1
  2
  3
@@ -271,6 +285,8 @@ sub   2048R/F32F736E 2014-08-01 <span class="o">[</span>expires: 2014-08-13<span
 <span class="nt">&lt;/project&gt;</span>
 </pre>
 </td></tr></table></div>
+<h3 id="release-a-snapshot-version">release a snapshot version</h3>
+
 <p>Now we are going to release a snapshot version to the <code>Staging Repository</code>, open your Terminal and point to following commands :</p>
 <div class="highlight bash"><table><tr><td class="linenos"><pre>1
 2
@@ -279,7 +295,7 @@ sub   2048R/F32F736E 2014-08-01 <span class="o">[</span>expires: 2014-08-13<span
 ~ <span class="nv">$ </span>mvn release:perform
 </pre>
 </td></tr></table></div>
-<p>In the <code>prepare</code> goal, Maven would ask you the <code>GPG passphrase</code> several times, also tagging your current version, commit two changes, push all modification to the <code>remotes</code> at last. Because Maven did a few VCS operations, thus we should rollback them if we got something wrong with this release process.</p>
+<p>In the <code>prepare</code> goal, Maven would ask you the <code>GPG passphrase</code> several times, also tagging your current version, commit two changes, push all modifications to the <code>remotes</code> at last. Because Maven did a few VCS operations, thus we should rollback them if we got something wrong with this release process.</p>
 <div class="highlight bash"><table><tr><td class="linenos"><pre>1
 2
 3
@@ -295,21 +311,23 @@ sub   2048R/F32F736E 2014-08-01 <span class="o">[</span>expires: 2014-08-13<span
 
 <h2 id="release-it-in-the-sonatype">Release it in the Sonatype</h2>
 
-<p>After above release was done successfully, we are ready to do the next job in Sonatype. To release the artifact, open your favorite browser and navigate to <a href="https://oss.sonatype.org/">https://oss.sonatype.org/</a>. You should <code>Log In</code> by the earlier account, then go to the <code>Build Promotion</code> tab&#39;s <code>Staging Repositories</code> which in the left pane, find out the Repository that you just release(normally at the list bottom), click the &quot;Close&quot; button then do the rest.</p>
+<p>After above release was done successfully, we are ready to do the next job in Sonatype to release the artifact. Open your favorite browser and navigate to <a href="https://oss.sonatype.org/">https://oss.sonatype.org/</a>. You should <code>Log In</code> by the earlier account, then go to the <code>Build Promotion</code> tab&#39;s <code>Staging Repositories</code> which in the left pane, find out the Repository that you just release(normally at the list bottom), click the &quot;Close&quot; button then do the rest.</p>
 
 <p><img src="/images/release_to_maven_release_it.png" alt="Release It" title="Release It"/></p>
 
-<p>Sometime you&#39;ll get the error like &#39;signature failed&#39;, remind you to solve the GPG Key pair conflict problem. If happens, you should drop the artifact, then re-release again. Ensure the &quot;Activity&quot; field says &quot;Last operation completed successfully&quot; before you move on.</p>
+<p>Sometime you&#39;ll get the error like &#39;signature failed&#39;, remind you to solve the GPG Key pair conflict problem. If happens, you should drop the artifact, then re-release again. Ensure the &quot;Activity&quot; field reported <strong>Last operation completed successfully</strong> before you move on.</p>
 
 <p><img src="/images/release_to_maven_release_it_errors.png" alt="Release It" title="Release It"/></p>
 
-<p>If you didn&#39;t see any error in the bottom &quot;Activity&quot; pane, means the <code>Release</code> button might already be enable, keep Refresh the Repositories if you didn&#39;t get it, now it&#39;s time to do the final step :</p>
+<p>If you didn&#39;t see any errors in the bottom &quot;Activity&quot; pane, means the <code>Release</code> button might already be enable, keep Refresh the Repositories until you got it, now it&#39;s time to do the final step :</p>
 
 <p><img src="/images/release_to_maven_release_it_final.png" alt="Release It" title="Release It"/></p>
 
-<p>Congratulation, you&#39;ve done all job about release, once you get successfully, your artifact will be synchronize to the Maven Central soon enough. The best way to verify whether success or not is search your artifact in <a href="search.maven.org">search.maven.org</a>, but it may take time before your artifact display, typically within 10 minutes even hours, so be patient with it.</p>
+<p>Congratulation, you&#39;ve done all jobs about release, once you get successfully, your artifact will be synchronize to the Maven Central soon enough. The best way to verify whether success or not is search your artifact in <a href="http://search.maven.org/">search.maven.org</a>, but it may take time before your artifact display, typically within 10 minutes even hours, so be patient with it.</p>
 
-<p>Throughout this improvement of my ability process, i referenced many articles, it would be detailedly to mark them in the end. I follow this <a href="http://central.sonatype.org/pages/ossrh-guide.html">guide</a> and <a href="https://docs.sonatype.org/pages/diffpages.action?pageId=6619209&amp;originalId=13598740">docs</a> in Sonatype all the time. Also below is my two release issue to record.</p>
+<h1 id="final-thoughts">Final Thoughts</h1>
+
+<p>Throughout this improvement of my ability process, i referenced many articles, it would be detailedly to mark them in the end. I followed this <a href="http://central.sonatype.org/pages/ossrh-guide.html">guide</a> and <a href="https://docs.sonatype.org/pages/diffpages.action?pageId=6619209&amp;originalId=13598740">docs</a> in Sonatype all the time. Also below are two release issues of mine to record.</p>
 
 <ul>
 <li><a href="https://issues.sonatype.org/browse/OSSRH-9739">OSSRH-9739</a></li>
